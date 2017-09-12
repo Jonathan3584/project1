@@ -36,6 +36,7 @@ Reach Goals:
 -As a user, I want in-site game reset.
 -As a user, I want player name storage.
 -As a user, I want "relaxation start" functionality.
+-As a user, I want responsive board size.
 
 Foreseen challenges:
 
@@ -50,7 +51,12 @@ Technology I intend to use:
 -Vanilla Javascript with jquery as needed for core game logic and DOM manipulation.
 -HTML for the creation of the page and elements of the board / sprites / cards.
 -CSS for styling all elements of the game and adding animation effects.
+-Skeleton for instituting responsiveness.  
 
+Wire Framing
 
-
+Landing site:
+https://wireframe.cc/j6UcU3
+Game page:
+https://wireframe.cc/MeUBvv
 
