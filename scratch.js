@@ -93,7 +93,7 @@ var game = {
 		}
 		$square.attr('directionalId', directionalId)
 		.text(directionalId);
-},
+	},
 	squareClass: function($square){
 				var id = $square.attr('id');
 				var r = $square.attr('data-row');
@@ -113,10 +113,8 @@ var game = {
 				if (r === '0' || r === '15' || c === '0' || c === '15' ) {
 					$square.addClass('normal');
 					this.boardDirection($square);
-				}
-				
+				}		
 	},
-
 	renderBoard: function(){
 		var idCounter = 0;
 	//clear board div
@@ -226,9 +224,12 @@ var game = {
 	spriteMove: function(sprite, cardValue, player){
 		var position = $(sprite).attr('position');
 		position = position + cardValue;
-		var boardPosition = position + this.playerConstant[player];
-		console.log(this.deck);
-		// sprite.appendTo($('div').attr('directionalId', boardPosition));
+		var boardPosition = 38;
+		var grab = "[directionalId = '" + boardPosition.toString() + "']";
+		console.log(grab);
+		console.log($(grab));
+
+		sprite.appendTo($(grab));
 
 		if (position >= 60) {
 			this.safeMove(sprite, position);
