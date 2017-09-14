@@ -2,8 +2,7 @@ $(function(){
 
 var safeZones = ['173', '189', '205', '221', '237', '209', '210', '211', '212', '213', '18', '34', '50', '66', '82', '42', '43', '44', '45', '46'];
 var slideStarts = ['246', '254', '96', '224', '1', '9', '31', '159'];
-var slideEnds = ['242', '251', '32', '176', '4', '13', '223', '79'];
-var slideMids = ['2', '3', '10', '11', '12', '47', '63', '175', '191', '207', '253', '252', '245', '244', '243', '208', '192', '80', '64', '48'];
+var slideMids = ['2', '3', '10', '11', '12', '47', '63', '175', '191', '207', '253', '252', '245', '244', '243', '208', '192', '80', '64', '48', '242', '251', '32', '176', '4', '13', '223', '79'];
 var ends = ['157', '214', '41' , '98'];  
 var stages = ['236', '193', '19', '62']
 
@@ -12,6 +11,13 @@ var game = {
 	squares: [],
 
 	player: ['yellow', 'green', 'red', 'blue'],
+
+	playerConstant: {
+		yellow: 33,
+		green: 48,
+		red: 3, 
+		blue: 18,
+	},
 
 	sprites: {
 		green: [],
@@ -51,10 +57,23 @@ var game = {
 		}
 	},
 	renderDeck: function(){
+		for (var i = 0; i < 2; i ++) {
 		var $deck = $('<div>')
+		.attr('id', 'deck' + i)
+		.appendTo('#deckbox')
 		.addClass('deck')
-		.appendTo('body')
-		.on('click', game.handleTurn);		
+	}
+		$('#deck0').on('click', game.handleTurn);
+		this.makePlayers(this.player);		
+	},
+	makePlayers: function(arr){
+		for (var i = 0; i < arr.length; i++) {
+		var $player = $('<div>')
+		.appendTo('#deckbox')
+		.attr('id', this.player[i])
+		.addClass('name').
+		text(this.player[i]);
+		}
 	},
 	boardDirection: function($square){
 		var directionalId = '';
@@ -75,7 +94,7 @@ var game = {
 		$square.attr('directionalId', directionalId)
 		.text(directionalId);
 },
-	squareClass: function($square)	{
+	squareClass: function($square){
 				var id = $square.attr('id');
 				var r = $square.attr('data-row');
 				var c = $square.attr('data-col');
@@ -88,7 +107,6 @@ var game = {
 				if (safeZones.includes(id) === true) {specialClass = 'safe';}
 				if (ends.includes(id) === true) {specialClass = 'end';}
 				if (slideStarts.includes(id) === true) {specialClass = 'slideStart';}
-				if (slideEnds.includes(id) === true) {specialClass = 'slideEnd';}
 				if (slideMids.includes(id) === true) {specialClass = 'slideMid';}
 
 				$square.addClass(specialClass);
@@ -142,6 +160,7 @@ var game = {
 	drawCard: function(){
 		//randomly select card from deck object
 		//remove card from deck object
+		$('#deck1').text(CARD)
 		//return card
 	},	
 	spriteSelect: function(player, legalArr){
@@ -180,19 +199,16 @@ var game = {
 			var sprite = this.createSprite(player);
 			this.sprites[player].push(sprite);
 			console.log(this.sprites);
+			var id = player + this.sprites[player].length;
+			$sprite.attr('id', id);
 		}
 	},
-	spriteSlide: function(sprite, newDiv){
+	spriteSlide: function(sprite, position){
 		
-		var position = this.sprites[player].position;
-		if (twoSlide) {
-			position = position + 2;
-			return newDiv = newDiv;
-		}
-		if (threeSlide) {
-			position = position + 3;
-			return newDiv = newDiv;
-		}
+	//POSITION + SLIDE LENGTH
+	//boardPosition + SLIDE LENGTH
+	//BUMP
+		return position;
 	},
 	spriteEnd: function(){
 		//remove sprite from game.sprites.player[]
@@ -200,23 +216,26 @@ var game = {
 		//add sprite to game.endSprites.player[]
 		this.winCheck();
 	},
-	spriteMove: function(sprite, cardValue){
+	moveSafe: function(sprite){
+		//MOVE INTO THE SAFE ZONE INSTEAD OF AROUND THE CIRCLE.
+	},
+	spriteMove: function(sprite, cardValue, player){
 		var position = this.sprites[player].position;
 		position = position + cardValue;
-		//DETERMINE HOW TO MOVE THE SPRITES TO DIVS AROUND CORNERS
+		var boardPosition = position + this.playerConstant[player];
+		// sprite.appendTo.()
 
-		if (newDiv.hasClass(slideStart)) {spriteSlide(sprite, newDiv)};
 
-		
-		//if (array position === 65) spriteEnd()};
+		if (position >= 60) {
+			this.safeMove(sprite, position);
+		}
 	},
 	exchangeSprites: function(sprite, enemySprite) {
 		//LOGIC TO EXCHANGE TWO SPRITE POSITIONS
 		//LOGIC TO MAKE START CONDITIONS FOR SORRY CARDX
 	},
-	nextTurn: function() {
+	nextTurn: function(player, card) {
 			if (card !== '2') {
-				//Add one to the index of the player array to change whose 
 				player = this.player[i + 1];
 			}
 			else player = this.player[i]
@@ -307,9 +326,15 @@ var game = {
 			else player = this.player[i]
 	 	}
 },
-	winCheck: function(){}
+	winCheck: function(player){
+		if (endSprites[player].length === 4) {
+			alert(player + ' WINS!');
+		}
+	}
 
 }
 
 game.renderBoard();
+game.spriteStart('yellow');
+// game.spriteMove($('#yellow1'), 5, 'yellow');
 })

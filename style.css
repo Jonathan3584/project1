@@ -1,13 +1,44 @@
 body {
 	text-align: center;
+	margin: auto;
+}
+#container{
+	width: 1100px;
 }
 #board {
+	display: inline-block;
 	width: 800px;
 	height: 800px;
-	position: absolute;
+	margin: auto;
 }
-#deck {
-
+#deckbox {
+	display: inline-block;
+	float: right;
+	width: 200px;
+	height: 800px;
+	background-color: gray
+}
+.deck {
+	width: 150px;
+	height: 225px;
+	margin: auto;
+	border: 1px solid black;
+	border-radius: 8px;
+}
+#deck0 {
+background-color: green;
+}
+#deck1 {
+background-color: white;
+font-size: 40px;
+}
+.name {
+	width: 175px;
+	height: 80px;
+	border: 1px solid black;
+	border-radius: 8px;
+	background-color: lightgray;
+	margin: auto;
 }
 .sprite {
 	width: 20px;
@@ -15,53 +46,54 @@ body {
 	margin: auto;
 	background-color: black;
 	position: relative;
-
-}
-.deck {
-
+	border: 1px solid black;
 }
 .square {
 	width: 48px;
 	height: 48px;
-	border: 1px solid black;
+	border: 1px solid;
 	display: inline-block;
 	float: left;
 	color: white;
 }
 .normal {
 	background-color: gray;	
+	border: 1px solid black;
 }
 .safe {
 	background-color: purple;
+	border: 1px solid black;
 }
 .end {
 	background-color: red;
+	border: 1px solid black;
 }
 .stage {
 	background-color: blue;
+	border: 1px solid black;
 }
 .slideMid {
 	background-color: orange;
+	border: 1px solid black;
 }
 .slideStart {
 	background-color: pink; 
-}
-.slideEnd {
-	background-color: tan;
-}
-.nonPlay {
-	color: white;
+	border: 1px solid black;
 }
 .blue {
 	background-color: blue;
+	border: 1px solid black;
 }
 .red {
 	background-color: red;
+	border: 1px solid black;
 }
 .green {
 	background-color: green;
+	border: 1px solid black;
 }
 .yellow {
 	background-color: yellow;
+	border: 1px solid black;
 }
 /*MAKE A DETERMINATION ON WHETHER OR NOT SPRITES AND SQUARES CAN SHARE COLOR CLASSES*/
