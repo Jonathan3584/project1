@@ -56,6 +56,25 @@ var game = {
 		.appendTo('body')
 		.on('click', game.handleTurn);		
 	},
+	boardDirection: function($square){
+		var directionalId = '';
+		var r = parseInt($square.attr('data-row'));
+		var c = parseInt($square.attr('data-col'));
+		if (r === 0) {
+			directionalId = c;
+		}
+		if (r === 15) {
+			directionalId = 45 - c;
+		}
+		if (c === 0) {
+			directionalId = 60 - r;
+		}
+		if (c === 15) {
+			directionalId = r + 16;
+		}
+		$square.attr('directionalId', directionalId)
+		.text(directionalId);
+},
 	squareClass: function($square)	{
 				var id = $square.attr('id');
 				var r = $square.attr('data-row');
@@ -73,13 +92,13 @@ var game = {
 				if (slideMids.includes(id) === true) {specialClass = 'slideMid';}
 
 				$square.addClass(specialClass);
-				if (r === '0' || r === '15' || c === '0' || c === '15' ) {$square.addClass('normal');}
-				// boardDirection()
+				if (r === '0' || r === '15' || c === '0' || c === '15' ) {
+					$square.addClass('normal');
+					this.boardDirection($square);
+				}
+				
 	},
-	boardDirection: function(){
-		this.squares.forEach(
-			)
-	},
+
 	renderBoard: function(){
 		var idCounter = 0;
 	//clear board div
@@ -99,7 +118,6 @@ var game = {
 	              .attr('data-row', r)
 	              .attr('data-col', c)
 	              .attr('id', idCounter)
-	              .text(idCounter);
 	              idCounter = idCounter +1;
 	            var square = this.createSquare(r, c, $square);
 	            this.squares.push(square);
