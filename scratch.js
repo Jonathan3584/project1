@@ -66,11 +66,11 @@ var game = {
 		if (r === 15) {
 			directionalId = 45 - c;
 		}
-		if (c === 0) {
+		if (c === 0 && r > 0) {
 			directionalId = 60 - r;
 		}
 		if (c === 15) {
-			directionalId = r + 16;
+			directionalId = r + 15;
 		}
 		$square.attr('directionalId', directionalId)
 		.text(directionalId);
