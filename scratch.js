@@ -4,7 +4,19 @@ var safeZones = ['173', '189', '205', '221', '237', '209', '210', '211', '212', 
 var slideStarts = ['246', '254', '96', '224', '1', '9', '31', '159'];
 var slideMids = ['2', '3', '10', '11', '12', '47', '63', '175', '191', '207', '253', '252', '245', '244', '243', '208', '192', '80', '64', '48', '242', '251', '32', '176', '4', '13', '223', '79'];
 var ends = ['157', '214', '41' , '98'];  
-var stages = ['236', '193', '19', '62']
+var stages = ['236', '193', '19', '62'];
+var globalDeck = [
+		1, 1, 1, 1, 1,
+		2, 2, 2, 2,
+		3, 3, 3, 3,
+		4, 4, 4, 4,
+		5, 5, 5, 5,
+		'sorry', 'sorry', 'sorry', 'sorry',
+		7, 7, 7, 7,
+		8, 8, 8, 8,
+		10, 10, 10, 10,
+		11, 11, 11, 11,
+	];
 
 var game = {
 
@@ -33,19 +45,7 @@ var game = {
 		blue: []
 	},
 
-	deck: {
-		1: 5,
-		2: 4,
-		3: 4,
-		4: 4,
-		5: 4,
-		7: 4,
-		8: 4,
-		10: 4,
-		11: 4,
-		12: 4,
-		sorry: 4,
-	},
+	deck: globalDeck,
 
 	squareClasses: [],
 
@@ -148,7 +148,9 @@ var game = {
 		//remove victimSprite from board and from this.sprites.player[]
 	},
 	shuffleDeck: function(){
-		//if cards left in deck object = 0, reset object
+		if (this.deck.length === 0) {
+			this.deck = globalDeck;
+		}
 	},
 	checkLegalMove: function(){
 		//CHECK IF THE SQUARE HAS ANY CHILD NODES
@@ -158,10 +160,12 @@ var game = {
 		//return legalArr
 	},
 	drawCard: function(){
-		//randomly select card from deck object
-		//remove card from deck object
-		$('#deck1').text(CARD)
-		//return card
+		var length = this.deck.length;
+		var randIndex = Math.floor(Math.random()*length);
+		var card = this.deck[randIndex];
+		$('#deck1').text(card)
+		this.deck.splice(randIndex, 1);
+		return card;
 	},	
 	spriteSelect: function(player, legalArr){
 		//Add clickListener to team sprites within the legalArr
@@ -220,11 +224,11 @@ var game = {
 		//MOVE INTO THE SAFE ZONE INSTEAD OF AROUND THE CIRCLE.
 	},
 	spriteMove: function(sprite, cardValue, player){
-		var position = this.sprites[player].position;
+		var position = $(sprite).attr('position');
 		position = position + cardValue;
 		var boardPosition = position + this.playerConstant[player];
-		// sprite.appendTo.()
-
+		console.log(this.deck);
+		// sprite.appendTo($('div').attr('directionalId', boardPosition));
 
 		if (position >= 60) {
 			this.safeMove(sprite, position);
@@ -336,5 +340,6 @@ var game = {
 
 game.renderBoard();
 game.spriteStart('yellow');
-// game.spriteMove($('#yellow1'), 5, 'yellow');
+game.spriteMove($('#yellow1'), 5, 'yellow');
+game.drawCard();
 })
