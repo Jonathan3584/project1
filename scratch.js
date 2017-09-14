@@ -1,5 +1,12 @@
 $(function(){
 
+var safeZones = ['173', '189', '205', '221', '237', '209', '210', '211', '212', '213', '18', '34', '50', '66', '82', '42', '43', '44', '45', '46'];
+var slideStarts = ['246', '254', '96', '224', '1', '9', '31', '159'];
+var slideEnds = ['242', '251', '32', '176', '4', '13', '223', '79'];
+var slideMids = ['2', '3', '10', '11', '12', '47', '63', '175', '191', '207', '253', '252', '245', '244', '243', '208', '192', '80', '64', '48'];
+var ends = ['157', '214', '41' , '98'];  
+var stages = ['236', '193', '19', '62']
+
 var game = {
 
 	squares: [],
@@ -48,26 +55,31 @@ var game = {
 		.addClass('deck')
 		.appendTo('body')
 		.on('click', game.handleTurn);		
-		},
+	},
 	squareClass: function($square)	{
 				var id = $square.attr('id');
+				var r = $square.attr('data-row');
+				var c = $square.attr('data-col');
 				// console.log(id);
 				var specialClass = '';
-				if (id === '157' || id === '214' || id === '41' || id === '98') {specialClass = 'end';}
-				// start square conditions; 
-				if (id === '235' || id === '193' || id === '19' || id === '62') {specialClass = 'stage';}
-				// safe square conditions;
-				
-				// normal play square conditions;
-				// safe entry conditions;
-				// slide start conditions;
-				// slide end conditions;
-				// slide mid conditions;
-				console.log(specialClass);
-				$square.addClass(specialClass);
-				// console.log($square);
 
-			},
+				if (r === '0' || r === '15' || c === '0' || c === '15' ) {specialClass = 'normal';}
+				if (ends.includes(id)) {specialClass = 'end';}
+				if (stages.includes(id) === true) {specialClass = 'stage';}
+				if (safeZones.includes(id) === true) {specialClass = 'safe';}
+				if (ends.includes(id) === true) {specialClass = 'end';}
+				if (slideStarts.includes(id) === true) {specialClass = 'slideStart';}
+				if (slideEnds.includes(id) === true) {specialClass = 'slideEnd';}
+				if (slideMids.includes(id) === true) {specialClass = 'slideMid';}
+
+				$square.addClass(specialClass);
+				if (r === '0' || r === '15' || c === '0' || c === '15' ) {$square.addClass('normal');}
+				// boardDirection()
+	},
+	boardDirection: function(){
+		this.squares.forEach(
+			)
+	},
 	renderBoard: function(){
 		var idCounter = 0;
 	//clear board div
@@ -96,13 +108,14 @@ var game = {
 	      }
 	    this.renderDeck();
 	    },
-	bumpPiece: function(row, col){
+	bumpPiece: function(id){
 		//remove victimSprite from board and from this.sprites.player[]
 	},
 	shuffleDeck: function(){
 		//if cards left in deck object = 0, reset object
 	},
 	checkLegalMove: function(){
+		//CHECK IF THE SQUARE HAS ANY CHILD NODES
 		//check for legal move (existent move that doesn't end w/ shared square)
 		//var legalArr = []
 		//push(sprites with legal moves)
@@ -121,44 +134,68 @@ var game = {
 		//return $(this)sprite OR startSprite();
 		//Remove clickListeners
 
-		//FIGURE OUT HOW TO INSTITUTE SPLIT CARDS -- 7s, 10s, 11s, SORRY
 	},
-	createSprite: function(player, pos) {
+	createSprite: function(player) {
 		return {
 			color: player,
-			position: pos,
+			position: 0
 		}
 	},
 	spriteStart: function(player){
-		//if (sprites.player.length > 4)
+		if (this.sprites[player].length < 4) {
 		var $sprite = $('<div>')
-			.appendTo('#board')
 			.attr('pos', 0)
-			.addClass(sprite);
-			var sprite = this.createSprite(player, pos);
+			.addClass(player)
+			.addClass('sprite');
+			if (player === 'yellow') {
+				$sprite.appendTo("#252")
+			}
+			if (player === 'green') {
+				$sprite.appendTo("#192")
+			}
+			if (player === 'red') {
+				$sprite.appendTo("#3")
+			}
+			if (player === 'blue') {
+				$sprite.appendTo("#62")
+			}
+			var sprite = this.createSprite(player);
 			this.sprites[player].push(sprite);
-
+			console.log(this.sprites);
+		}
 	},
-	spriteSlide: function(row, col){
-		//if ($('.slide .start').includes(row,col)){
-		// 	bumpPiece(COORDEINATES OF ASSOCIATED SLIDE)
-		// }
-		//Add slide to sprite position
-		//Move sprite
+	spriteSlide: function(sprite, newDiv){
+		
+		var position = this.sprites[player].position;
+		if (twoSlide) {
+			position = position + 2;
+			return newDiv = newDiv;
+		}
+		if (threeSlide) {
+			position = position + 3;
+			return newDiv = newDiv;
+		}
 	},
 	spriteEnd: function(){
 		//remove sprite from game.sprites.player[]
 		//remove sprite from board
 		//add sprite to game.endSprites.player[]
+		this.winCheck();
 	},
-	spriteMove: function(sprite, card){
-		//Increase the position variable in the sprite array by the card.
-		//Move sprite on board;
-		//spriteSlide(row, col);
-		//bumpPiece(row,col)};
-		//if array position === spriteEnd()};
-	},
+	spriteMove: function(sprite, cardValue){
+		var position = this.sprites[player].position;
+		position = position + cardValue;
+		//DETERMINE HOW TO MOVE THE SPRITES TO DIVS AROUND CORNERS
 
+		if (newDiv.hasClass(slideStart)) {spriteSlide(sprite, newDiv)};
+
+		
+		//if (array position === 65) spriteEnd()};
+	},
+	exchangeSprites: function(sprite, enemySprite) {
+		//LOGIC TO EXCHANGE TWO SPRITE POSITIONS
+		//LOGIC TO MAKE START CONDITIONS FOR SORRY CARDX
+	},
 	nextTurn: function() {
 			if (card !== '2') {
 				//Add one to the index of the player array to change whose 
@@ -166,10 +203,57 @@ var game = {
 			}
 			else player = this.player[i]
 			},
-	sevenCard: function(){},
-	tenCard: function(){},
-	elevenCard: function(){},
-	sorryCard: function(){},
+	sevenCard: function(player){
+				// DETERMINE LEGAL ARRAY
+				// var n = USER INPUT FOR parts of seven;
+				var arrSeven = [n, 7 - n]
+				for (var i = 0; i < 2; i++) {
+					arrSeven[i]
+					this.spriteSelect(player, legalArr);
+					this.spriteMove(sprite, card);
+				}
+				this.shuffleDeck();
+				this.nextTurn();
+		},
+	tenCard: function(player){
+		//DETERMINE LEGAL ARRAY
+		//PROMPT USER FOR +10 or -1
+		if (10 === true) {
+			card = 10;
+			this.spriteSelect(player, legalArr);
+			this.spriteMove(sprite, card);
+			this.shuffleDeck();
+			this.nextTurn();
+		}
+		if (-1 === true) {
+			card = -1;
+			this.spriteSelect(player, legalArr);
+			this.spriteMove(sprite, card);
+			this.shuffleDeck();
+			this.nextTurn();
+		}
+	},
+	elevenCard: function(player){
+		//DETERMINE LEGAL ARRAY
+		//PROMPT USER FOR 11 or SWAP
+		if (11 === true) {
+			card = 11;
+			this.spriteSelect(player, legalArr);
+			this.spriteMove(sprite, card);
+			this.shuffleDeck();
+			this.nextTurn();
+		}
+		if ('swap' === true) {
+			//PROMPT FOR ENEMY SPRITE SELECTION
+			this.echangeSprites();
+		}
+	},
+	sorryCard: function(){
+		//PROMPT FOR ENEMY SPRITE SELECTION
+		if (sprites.length + endSprites.length <= 3) {
+			eschangeSprites()
+		}
+	},
 	handleTurn: function(PLACEHOLDER){
 
 		var card = drawCard();
@@ -191,12 +275,11 @@ var game = {
 				if (legalArr.length === 0) {
 					return alert('Sorry! No legal moves!');
 				}
-				else {
+				else 
 				alert('Choose your piece!');
 				this.spriteSelect(player, legalArr);
 				this.spriteMove(sprite, card);
 				this.shuffleDeck();
-				this.winCheck();
 				this.nextTurn();
 
 			if (card !== '2') {
@@ -204,8 +287,7 @@ var game = {
 				player = this.player[i + 1];
 			}
 			else player = this.player[i]
-		}
-}
+	 	}
 },
 	winCheck: function(){}
 

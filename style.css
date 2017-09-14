@@ -9,7 +9,12 @@ body {
 #deck {
 
 }
-.greensprite {
+.sprite {
+	width: 20px;
+	height: 20px;
+	margin: auto;
+	background-color: black;
+	position: relative;
 
 }
 .deck {
@@ -21,12 +26,13 @@ body {
 	border: 1px solid black;
 	display: inline-block;
 	float: left;
+	color: white;
 }
-.start {
-
+.normal {
+	background-color: gray;	
 }
 .safe {
-
+	background-color: purple;
 }
 .end {
 	background-color: red;
@@ -35,24 +41,27 @@ body {
 	background-color: blue;
 }
 .slideMid {
-
+	background-color: orange;
 }
 .slideStart {
-
+	background-color: pink; 
 }
 .slideEnd {
-
+	background-color: tan;
+}
+.nonPlay {
+	color: white;
 }
 .blue {
-
+	background-color: blue;
 }
 .red {
-
+	background-color: red;
 }
 .green {
-
+	background-color: green;
 }
 .yellow {
-
+	background-color: yellow;
 }
 /*MAKE A DETERMINATION ON WHETHER OR NOT SPRITES AND SQUARES CAN SHARE COLOR CLASSES*/
