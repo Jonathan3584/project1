@@ -2,8 +2,8 @@ body {
 	text-align: center;
 }
 #board {
-	width: 1024px;
-	height: 1024px;
+	width: 800px;
+	height: 800px;
 	position: absolute;
 }
 #deck {
@@ -12,10 +12,13 @@ body {
 .greensprite {
 
 }
+.deck {
+
+}
 .square {
-	width: 60px;
-	height: 60px;
-	border: 2px solid black;
+	width: 48px;
+	height: 48px;
+	border: 1px solid black;
 	display: inline-block;
 	float: left;
 }
@@ -26,7 +29,10 @@ body {
 
 }
 .end {
-
+	background-color: red;
+}
+.stage {
+	background-color: blue;
 }
 .slideMid {
 
