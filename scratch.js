@@ -225,7 +225,6 @@ var game = {
 			this.bumpPiece(bumpSquare);
 			console.log(bumpSquare);
 		}
-		return 3;
 	},
 	spriteSlideB: function(sprite, boardPosition){
 
@@ -252,24 +251,28 @@ var game = {
 
 		var position = this.sprites[player][spriteIndex].position;
 		var boardPosition = this.sprites[player][spriteIndex].position + this.playerConstant[player];
-
+		if (boardPosition > 59) {boardPosition = boardPosition - 60;}
 		var grab = "[directionalId = '" + boardPosition.toString() + "']";
+		console.log(grab);
 		
-		
+		sprite.appendTo($(grab));
+
 		if ($(grab).hasClass('slideStartA')) {
 			this.spriteSlideA(sprite, boardPosition);
 			this.sprites[player][spriteIndex].position += 3;
 			boardPosition += 3;
 			grab = "[directionalId = '" + boardPosition.toString() + "']";
+			sprite.appendTo($(grab));
 		}
 		if ($(grab).hasClass('slideStartB')) {
 			this.spriteSlideB(sprite, boardPosition);
 			this.sprites[player][spriteIndex].position += 4;
 			boardPosition += 4;
 			grab = "[directionalId = '" + boardPosition.toString() + "']";
+			sprite.appendTo($(grab));
 		}
-		sprite.appendTo($(grab));
 		
+
 		// if (position >= 60) {
 		// 	this.safeMove(sprite, position);
 		
@@ -284,6 +287,9 @@ var game = {
 			}
 			else player = this.player[i]
 			},
+	twoCard: function(player){
+
+	},
 	sevenCard: function(player){
 				// DETERMINE LEGAL ARRAY
 		// 		// var n = USER INPUT FOR parts of seven;
@@ -381,6 +387,8 @@ game.spriteMove($('#green0'), 3, 'green');
 console.log(game.sprites);
 game.checkLegalMove(5, 'green');
 game.spriteMove($('#green0'), 3, 'green');
+game.spriteMove($('#green0'), 3, 'green');
+console.log(game.sprites);
 
 // game.spriteSlideB($('green0'), 54);
 
