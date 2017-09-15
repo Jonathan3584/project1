@@ -196,12 +196,11 @@ var game = {
 				$sprite.appendTo("#3")
 			}
 			if (player === 'blue') {
-				$sprite.appendTo("#62")
+				$sprite.appendTo("#63")
 			}
 			var sprite = this.createSprite(player);
 			this.sprites[player].push(sprite);
-			console.log(this.sprites);
-			var id = player + this.sprites[player].length;
+			var id = player + (this.sprites[player].length -1);
 			$sprite.attr('id', id);
 		}
 	},
@@ -216,24 +215,22 @@ var game = {
 		//remove sprite from game.sprites.player[]
 		//remove sprite from board
 		//add sprite to game.endSprites.player[]
-		this.winCheck();
+		this.winCheck(player);
 	},
 	moveSafe: function(sprite){
 		//MOVE INTO THE SAFE ZONE INSTEAD OF AROUND THE CIRCLE.
 	},
-	spriteMove: function(sprite, cardValue, player){
-		var position = $(sprite).attr('position');
-		position = position + cardValue;
-		var boardPosition = 38;
-		var grab = "[directionalId = '" + boardPosition.toString() + "']";
-		console.log(grab);
-		console.log($(grab));
+	spriteMove: function(sprite, card, player){
+		var stringId = $(sprite).attr('id');
+		var spriteIndex = parseInt(stringId.charAt(stringId.length - 1));	
+		this.sprites[player][spriteIndex].position = this.sprites[player][spriteIndex].position + card;
+		var boardPosition = this.sprites[player][spriteIndex].position + this.playerConstant[player];
 
+		var grab = "[directionalId = '" + boardPosition.toString() + "']";
 		sprite.appendTo($(grab));
 
-		if (position >= 60) {
-			this.safeMove(sprite, position);
-		}
+		// if (position >= 60) {
+		// 	this.safeMove(sprite, position);
 	},
 	exchangeSprites: function(sprite, enemySprite) {
 		//LOGIC TO EXCHANGE TWO SPRITE POSITIONS
@@ -247,15 +244,15 @@ var game = {
 			},
 	sevenCard: function(player){
 				// DETERMINE LEGAL ARRAY
-				// var n = USER INPUT FOR parts of seven;
-				var arrSeven = [n, 7 - n]
-				for (var i = 0; i < 2; i++) {
-					arrSeven[i]
-					this.spriteSelect(player, legalArr);
-					this.spriteMove(sprite, card);
-				}
-				this.shuffleDeck();
-				this.nextTurn();
+		// 		// var n = USER INPUT FOR parts of seven;
+		// 		var arrSeven = [n, 7 - n]
+		// 		for (var i = 0; i < 2; i++) {
+		// 			arrSeven[i]
+		// 			this.spriteSelect(player, legalArr);
+		// 			this.spriteMove(sprite, card);
+		// 		}
+		// 		this.shuffleDeck();
+		// 		this.nextTurn();
 		},
 	tenCard: function(player){
 		//DETERMINE LEGAL ARRAY
@@ -287,7 +284,7 @@ var game = {
 		}
 		if ('swap' === true) {
 			//PROMPT FOR ENEMY SPRITE SELECTION
-			this.echangeSprites();
+			this.exchangeSprites();
 		}
 	},
 	sorryCard: function(){
@@ -340,7 +337,8 @@ var game = {
 }
 
 game.renderBoard();
-game.spriteStart('yellow');
-game.spriteMove($('#yellow1'), 5, 'yellow');
-game.drawCard();
+game.spriteStart('green');
+game.spriteMove($('#green0'), 3, 'green');
+// game.drawCard();
+console.log(game.sprites);
 })
