@@ -76,9 +76,13 @@ font-size: 40px;
 	background-color: orange;
 	border: 1px solid black;
 }
-.slideStart {
+.slideStartA {
 	background-color: pink; 
 	border: 1px solid black;
+}
+.slideStartB {
+	background-color: rebeccapurple; 
+	border: 1px solid black;	
 }
 .blue {
 	background-color: blue;

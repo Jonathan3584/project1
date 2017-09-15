@@ -1,7 +1,8 @@
 $(function(){
 
 var safeZones = ['173', '189', '205', '221', '237', '209', '210', '211', '212', '213', '18', '34', '50', '66', '82', '42', '43', '44', '45', '46'];
-var slideStarts = ['246', '254', '96', '224', '1', '9', '31', '159'];
+var slideStartA = ['1', '254', '31', '224'];
+var slideStartB = ['246', '96', '9', '159'];
 var slideMids = ['2', '3', '10', '11', '12', '47', '63', '175', '191', '207', '253', '252', '245', '244', '243', '208', '192', '80', '64', '48', '242', '251', '32', '176', '4', '13', '223', '79'];
 var ends = ['157', '214', '41' , '98'];  
 var stages = ['236', '193', '19', '62'];
@@ -106,7 +107,8 @@ var game = {
 				if (stages.includes(id) === true) {specialClass = 'stage';}
 				if (safeZones.includes(id) === true) {specialClass = 'safe';}
 				if (ends.includes(id) === true) {specialClass = 'end';}
-				if (slideStarts.includes(id) === true) {specialClass = 'slideStart';}
+				if (slideStartA.includes(id) === true) {specialClass = 'slideStartA';}
+				if (slideStartB.includes(id) === true) {specialClass = 'slideStartB';}
 				if (slideMids.includes(id) === true) {specialClass = 'slideMid';}
 
 				$square.addClass(specialClass);
@@ -150,11 +152,23 @@ var game = {
 			this.deck = globalDeck;
 		}
 	},
-	checkLegalMove: function(){
-		//CHECK IF THE SQUARE HAS ANY CHILD NODES
-		//check for legal move (existent move that doesn't end w/ shared square)
-		//var legalArr = []
-		//push(sprites with legal moves)
+	checkLegalMove: function(card, player){
+		// var legalArr = [];
+		// var playerArr = this.sprites[player];
+
+		// for (var i = 0; i < playerArr.length; i++)
+
+		// var position = this.sprites[player][i].position + card;
+		// var boardPosition = position + this.playerConstant[player];
+		// var grab = "[directionalId = '" + boardPosition.toString() + "']";
+		// var classCheck = "'." + player + "'";
+		// console.log(classCheck);
+		// console.log($(grab).hasChildNodes(classCheck));
+		// if (grabNodes === true) {
+		// 	legalArr.push(sprite)
+		// }
+
+		
 		//return legalArr
 	},
 	drawCard: function(){
@@ -204,12 +218,23 @@ var game = {
 			$sprite.attr('id', id);
 		}
 	},
-	spriteSlide: function(sprite, position){
+	spriteSlideA: function( boardPosition){
+
+		for (var i = 0; i < 4; i++) {
+			var bumpSquare = "[directionalId = '" + (boardPosition + i).toString() + "']";
+			this.bumpPiece(bumpSquare);
+			console.log(bumpSquare);
+		}
+		return 3;
+	},
+	spriteSlideB: function(sprite, boardPosition){
+
+		for (var i = 0; i < 5; i++) {
+			var bumpSquare = "[directionalId = '" + (boardPosition + i).toString() + "']";
+			this.bumpPiece(bumpSquare);
+			console.log(bumpSquare);		
+		}
 		
-	//POSITION + SLIDE LENGTH
-	//boardPosition + SLIDE LENGTH
-	//BUMP
-		return position;
 	},
 	spriteEnd: function(){
 		//remove sprite from game.sprites.player[]
@@ -222,15 +247,32 @@ var game = {
 	},
 	spriteMove: function(sprite, card, player){
 		var stringId = $(sprite).attr('id');
-		var spriteIndex = parseInt(stringId.charAt(stringId.length - 1));	
+		var spriteIndex = parseInt(stringId.charAt(stringId.length - 1));
 		this.sprites[player][spriteIndex].position = this.sprites[player][spriteIndex].position + card;
+
+		var position = this.sprites[player][spriteIndex].position;
 		var boardPosition = this.sprites[player][spriteIndex].position + this.playerConstant[player];
 
 		var grab = "[directionalId = '" + boardPosition.toString() + "']";
+		
+		
+		if ($(grab).hasClass('slideStartA')) {
+			this.spriteSlideA(sprite, boardPosition);
+			this.sprites[player][spriteIndex].position += 3;
+			boardPosition += 3;
+			grab = "[directionalId = '" + boardPosition.toString() + "']";
+		}
+		if ($(grab).hasClass('slideStartB')) {
+			this.spriteSlideB(sprite, boardPosition);
+			this.sprites[player][spriteIndex].position += 4;
+			boardPosition += 4;
+			grab = "[directionalId = '" + boardPosition.toString() + "']";
+		}
 		sprite.appendTo($(grab));
-
+		
 		// if (position >= 60) {
 		// 	this.safeMove(sprite, position);
+		
 	},
 	exchangeSprites: function(sprite, enemySprite) {
 		//LOGIC TO EXCHANGE TWO SPRITE POSITIONS
@@ -297,37 +339,33 @@ var game = {
 
 		var card = drawCard();
 		var player = this.player[i];
+			if (card === '2') {
+				this.twoCard(player);
+			}
 			if (card === '7') {
-				this.sevenCard();
+				this.sevenCard(player);
 			}
 			if (card === '10') {
-				this.tenCard();
+				this.tenCard(player);
 			}
 			if (card === '11') {
 				this.elevenCard();
 			}
 			if (card === 'sorry') {
-				this.sorryCard();
+				this.sorryCard(player);
 			}
 			else {
-			this.checkLegalMove();
+			this.checkLegalMove(player, card);
 				if (legalArr.length === 0) {
 					return alert('Sorry! No legal moves!');
 				}
 				else 
 				alert('Choose your piece!');
 				this.spriteSelect(player, legalArr);
-				this.spriteMove(sprite, card);
-				this.shuffleDeck();
+				this.spriteMove(sprite, card, player);
 				this.nextTurn();
-
-			if (card !== '2') {
-				//Add one to the index of the player array to change whose 
-				player = this.player[i + 1];
 			}
-			else player = this.player[i]
-	 	}
-},
+		},
 	winCheck: function(player){
 		if (endSprites[player].length === 4) {
 			alert(player + ' WINS!');
@@ -341,4 +379,21 @@ game.spriteStart('green');
 game.spriteMove($('#green0'), 3, 'green');
 // game.drawCard();
 console.log(game.sprites);
+game.checkLegalMove(5, 'green');
+game.spriteMove($('#green0'), 3, 'green');
+
+// game.spriteSlideB($('green0'), 54);
+
+
+
+
 })
+
+
+
+
+
+
+
+
+
