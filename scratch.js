@@ -229,7 +229,7 @@ var game = {
 		}
 	},
 	spriteStart: function(player){
-		if (this.sprites[player].length < 4) {
+		if ((this.sprites[player].length + this.endSprites[player].length) < 4) {
 		var $sprite = $('<div>')
 			.attr('pos', 0)
 			.addClass(player)
@@ -270,24 +270,40 @@ var game = {
 		
 	},
 	spriteEnd: function(sprite, player){
+		var strPlayer = "[id ='" + player + "']";
+		sprite.appendTo($(strPlayer));
+
+		console.log(this.sprites);
+		console.log(this.endSprites);
+
+		var stringId = $(sprite).attr('id');
+		var spriteIndex = parseInt(stringId.charAt(stringId.length - 1));
+		this.sprites[player].splice([spriteIndex], 1);
+
+		var retiredSprite = this.createSprite(player);
+		this.endSprites[player].push(retiredSprite);
+
+		console.log(this.sprites);
+		console.log(this.endSprites);
+		
 		//remove sprite from game.sprites.player[]
 		//remove sprite from board
 		//add sprite to game.endSprites.player[]
 		this.winCheck(player);
 	},
-	moveSafe: function(sprite){
-		//MOVE INTO THE SAFE ZONE INSTEAD OF AROUND THE CIRCLE.
-	},
 	spriteMove: function(sprite, card, player){
 		var stringId = $(sprite).attr('id');
+		// console.log(stringId);
 		var spriteIndex = parseInt(stringId.charAt(stringId.length - 1));
 		this.sprites[player][spriteIndex].position = this.sprites[player][spriteIndex].position + card;
 
 		var position = this.sprites[player][spriteIndex].position;
+		console.log(position);
+
 		var boardPosition = this.sprites[player][spriteIndex].position + this.playerConstant[player];
 		if (boardPosition > 59) {boardPosition = boardPosition - 60;}
 		var grab = "[directionalId = '" + boardPosition.toString() + "']";
-		console.log(grab);
+		console.log(position);
 		
 		if (position >= 65) {
 			this.spriteEnd(sprite, player);
@@ -310,7 +326,6 @@ var game = {
 		if (position >= 60) {
 			var safePosition = position - 59;
 			var safeGrab = "[safetyID = '" + player.charAt(0) + safePosition.toString() + "'";
-			console.log(safeGrab);
 			sprite.appendTo($(safeGrab));
 		}
 
@@ -416,7 +431,7 @@ var game = {
 			}
 		},
 	winCheck: function(player){
-		if (endSprites[player].length === 4) {
+		if (this.endSprites[player].length === 4) {
 			alert(player + ' WINS!');
 		}
 	}
@@ -427,9 +442,9 @@ game.renderBoard();
 game.spriteStart('green');
 game.spriteMove($('#green0'), 3, 'green');
 game.spriteStart('green');
-game.drawCard();
-// console.log(game.sprites);
-// game.checkLegalMove(3, 'green');
+// game.drawCard();
+// // console.log(game.sprites);
+// // game.checkLegalMove(3, 'green');
 game.spriteMove($('#green0'), 5, 'green')
 game.spriteMove($('#green0'), 5, 'green')
 game.spriteMove($('#green0'), 5, 'green')
@@ -441,6 +456,7 @@ game.spriteMove($('#green0'), 5, 'green')
 game.spriteMove($('#green0'), 5, 'green')
 game.spriteMove($('#green0'), 5, 'green')
 game.spriteMove($('#green0'), 2, 'green')
+game.spriteMove($('#green0'), 3, 'green');
 
 
 game.spriteStart('blue')

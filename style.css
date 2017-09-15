@@ -37,8 +37,20 @@ font-size: 40px;
 	height: 80px;
 	border: 1px solid black;
 	border-radius: 8px;
-	background-color: lightgray;
+	
 	margin: auto;
+}
+#green {
+background-color: lightgreen;
+}
+#yellow {
+background-color: lightyellow;
+}
+#blue {
+background-color: lightblue;
+}
+#red {
+background-color: pink;
 }
 .sprite {
 	width: 20px;
