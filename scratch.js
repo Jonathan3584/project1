@@ -1,4 +1,7 @@
+var topGame;
+
 $(function(){
+
 
 var safeZones = ['173', '189', '205', '221', '237', '209', '210', '211', '212', '213', '18', '34', '50', '66', '82', '42', '43', '44', '45', '46'];
 var slideStartA = ['1', '254', '31', '224'];
@@ -99,17 +102,21 @@ var game = {
 		var safetyId = '';
 		var r = parseInt($square.attr('data-row'));
 		var c = parseInt($square.attr('data-col'));
-		if (c === 2 && r < 10) { 
-			safetyId = r;
+		if (c === 2 && r < 9) { 
+			safetyId = "r" + r;
+			$square.addClass('red');
 		}
-		if (r === 2 && c > 10) {
-			safetyId = 15 - c;
+		if (r === 2 && c > 9) {
+			safetyId = "b" + (15 - c);
+			$square.addClass('blue')
 		}
-		if (c === 13 && r > 10) {
-			safetyId = 30 -r;
-		}
-		if (r === 13 && c < 10) {
-			safetyId = c;
+		if (c === 13 && r > 9) {
+			safetyId = "y" + (15 - r);
+			$square.addClass('yellow')
+				}
+		if (r === 13 && c < 9) {
+			safetyId = "g" + c;
+			$square.addClass('green')
 		}
 		$square.attr('safetyId', safetyId)
 		.text("S" +safetyId);
@@ -262,7 +269,7 @@ var game = {
 		}
 		
 	},
-	spriteEnd: function(){
+	spriteEnd: function(sprite, player){
 		//remove sprite from game.sprites.player[]
 		//remove sprite from board
 		//add sprite to game.endSprites.player[]
@@ -282,7 +289,9 @@ var game = {
 		var grab = "[directionalId = '" + boardPosition.toString() + "']";
 		console.log(grab);
 		
-		
+		if (position >= 65) {
+			this.spriteEnd(sprite, player);
+		}
 
 		if ($(grab).hasClass('slideStartA')) {
 			this.spriteSlideA(sprite, boardPosition);
@@ -298,9 +307,14 @@ var game = {
 			grab = "[directionalId = '" + boardPosition.toString() + "']";
 			sprite.appendTo($(grab));
 		}
-		else sprite.appendTo($(grab));
+		if (position >= 60) {
+			var safePosition = position - 59;
+			var safeGrab = "[safetyID = '" + player.charAt(0) + safePosition.toString() + "'";
+			console.log(safeGrab);
+			sprite.appendTo($(safeGrab));
+		}
 
-		if (position >= 60) {}
+		else sprite.appendTo($(grab));
 			
 		
 	},
@@ -419,13 +433,23 @@ game.drawCard();
 game.spriteMove($('#green0'), 5, 'green')
 game.spriteMove($('#green0'), 5, 'green')
 game.spriteMove($('#green0'), 5, 'green')
+game.spriteMove($('#green0'), 5, 'green')
+game.spriteMove($('#green0'), 5, 'green')
+game.spriteMove($('#green0'), 5, 'green')
+game.spriteMove($('#green0'), 5, 'green')
+game.spriteMove($('#green0'), 5, 'green')
+game.spriteMove($('#green0'), 5, 'green')
+game.spriteMove($('#green0'), 5, 'green')
+game.spriteMove($('#green0'), 2, 'green')
+
+
 game.spriteStart('blue')
 game.spriteStart('yellow')
 // console.log(game.sprites);
 
 // game.spriteSlideB($('green0'), 54);
 
-
+topGame = game;
 
 
 })
