@@ -234,6 +234,13 @@ var game = {
 			.attr('pos', 0)
 			.addClass(player)
 			.addClass('sprite');
+			
+			var sprite = this.createSprite(player);
+			this.sprites[player].push(sprite);
+			console.log(this.sprites);
+			var id = player + (this.sprites[player].length -1);
+			$sprite.attr('id', id);
+
 			if (player === 'yellow') {
 				$sprite.appendTo("#252")
 			}
@@ -246,10 +253,6 @@ var game = {
 			if (player === 'blue') {
 				$sprite.appendTo("#63")
 			}
-			var sprite = this.createSprite(player);
-			this.sprites[player].push(sprite);
-			var id = player + (this.sprites[player].length -1);
-			$sprite.attr('id', id);
 		}
 	},
 	spriteSlideA: function( boardPosition){
@@ -286,14 +289,12 @@ var game = {
 		console.log(this.sprites);
 		console.log(this.endSprites);
 		
-		//remove sprite from game.sprites.player[]
-		//remove sprite from board
-		//add sprite to game.endSprites.player[]
 		this.winCheck(player);
 	},
 	spriteMove: function(sprite, card, player){
 		var stringId = $(sprite).attr('id');
-		// console.log(stringId);
+		console.log(stringId);
+		console.log(sprite);
 		var spriteIndex = parseInt(stringId.charAt(stringId.length - 1));
 		this.sprites[player][spriteIndex].position = this.sprites[player][spriteIndex].position + card;
 
@@ -442,9 +443,12 @@ game.renderBoard();
 game.spriteStart('green');
 game.spriteMove($('#green0'), 3, 'green');
 game.spriteStart('green');
+
+game.spriteStart('blue')
+game.spriteStart('yellow')
 // game.drawCard();
-// // console.log(game.sprites);
-// // game.checkLegalMove(3, 'green');
+// // // console.log(game.sprites);
+// // // game.checkLegalMove(3, 'green');
 game.spriteMove($('#green0'), 5, 'green')
 game.spriteMove($('#green0'), 5, 'green')
 game.spriteMove($('#green0'), 5, 'green')
@@ -457,10 +461,13 @@ game.spriteMove($('#green0'), 5, 'green')
 game.spriteMove($('#green0'), 5, 'green')
 game.spriteMove($('#green0'), 2, 'green')
 game.spriteMove($('#green0'), 3, 'green');
-
-
-game.spriteStart('blue')
+game.spriteMove($('#yellow0'), 4, 'yellow')
+game.spriteMove($('#yellow0'), 50, 'yellow')
+game.spriteMove($('#yellow0'), 5, 'yellow')
+game.spriteMove($('#yellow0'), 4, 'yellow')
 game.spriteStart('yellow')
+game.spriteMove($('#yellow0'), 4, 'yellow')
+
 // console.log(game.sprites);
 
 // game.spriteSlideB($('green0'), 54);
