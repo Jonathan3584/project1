@@ -112,4 +112,8 @@ background-color: pink;
 	background-color: yellow;
 	border: 1px solid black;
 }
+.highlighted {
+	background-color: black;
+	opacity: .5;
+}
 /*MAKE A DETERMINATION ON WHETHER OR NOT SPRITES AND SQUARES CAN SHARE COLOR CLASSES*/
