@@ -221,7 +221,7 @@ var game = {
 				}
 		}
 		if ((this.sprites[player].length + this.endSprites[player].length) < 4) {
-			console.log($('.stage'))
+			$('.stage').addClass('highlighted')
 		}
 		console.log(legalArr)
 		return this.spriteSelect(legalArr, card, player);
@@ -243,12 +243,12 @@ var game = {
 			})
 		}
 		if ((this.sprites[player].length + this.endSprites[player].length) < 4) {
-			var stageSquare = "'.stage." + player + "'";
-			var stringStage = stageSquare.toString()
-			console.log(stringStage)
-			console.log($(stringStage))
+			$('.stage').on('click', function(event){
+				console.log(selectedSprite = 'NEW');
+			})
+			}
 			// .on('click', function(event);
-			} 
+			
 		
 		//return $(this)sprite OR startSprite();
 		//Remove clickListeners
