@@ -24,6 +24,8 @@ var globalDeck = [
 
 var game = {
 
+	turn: 0,
+
 	squares: [],
 
 	player: ['yellow', 'green', 'red', 'blue'],
@@ -224,7 +226,7 @@ var game = {
 			$('.stage').addClass('highlighted')
 		}
 		console.log(legalArr)
-		return this.spriteSelect(legalArr, card, player);
+		return this.listenersOn(legalArr, card, player);
 	},
 	drawCard: function(){
 		var length = this.deck.length;
@@ -234,19 +236,20 @@ var game = {
 		this.deck.splice(randIndex, 1);
 		return card;
 	},	
-	spriteSelect: function(legalArr, card, player){
+	selectSprite: function(sprite){
+		console.log(sprite)
+	},
+	listenersOn: function(legalArr, card, player){
 		var selectedSprite = '';
 		for (i = 0; i < legalArr.length; i++) {
 			var legalSprite = legalArr[i];
-			legalSprite.element.on('click', function(el){
-				console.log( selectedSprite = $(this));
-			})
+			legalSprite.element.on('click', this.selectSprite)
 		}
 		if ((this.sprites[player].length + this.endSprites[player].length) < 4) {
-			$('.stage').on('click', function(event){
-				console.log(selectedSprite = 'NEW');
-			})
+			$('.stage').on('click', this.spriteStart);
 			}
+
+
 			// .on('click', function(event);
 			
 		
@@ -261,17 +264,19 @@ var game = {
 			element: $sprite
 		}
 	},
-	spriteStart: function(player){
-		if ((this.sprites[player].length + this.endSprites[player].length) < 4) {
+	spriteStart: function(){
+		var player = game.player[game.turn];
+		console.log(game.sprites[player].length + game.endSprites[player].length)
+		if ((game.sprites[player].length + game.endSprites[player].length) < 4) {
 		var $sprite = $('<div>')
 			.attr('pos', 0)
 			.addClass(player)
 			.addClass('sprite');
 			
-			var sprite = this.createSprite($sprite, player);
-			this.sprites[player].push(sprite);
-			console.log(this.sprites);
-			var id = player + (this.sprites[player].length -1);
+			var sprite = game.createSprite($sprite, player);
+			game.sprites[player].push(sprite);
+			console.log(game.sprites);
+			var id = player + (game.sprites[player].length -1);
 			$sprite.attr('id', id);
 
 			if (player === 'yellow') {
@@ -291,13 +296,13 @@ var game = {
 	spriteSlideA: function(player, boardPosition){
 			for (var i = 0; i < 4; i++) {
 			var bumpSquare = "[directionalId = '" + (boardPosition + i).toString() + "']";
-			this.bumpPiece($(bumpSquare));
+			game.bumpPiece($(bumpSquare));
 			}
 	},
 	spriteSlideB: function(player, boardPosition){
 			for (var i = 0; i < 5; i++) {
 			var bumpSquare = "[directionalId = '" + (boardPosition + i).toString() + "']";
-			this.bumpPiece($(bumpSquare));
+			game.bumpPiece($(bumpSquare));
 			}
 	},
 	spriteEnd: function(sprite, player){
@@ -306,35 +311,35 @@ var game = {
 
 		// var stringId = $(sprite).attr('id');
 		// var spriteIndex = parseInt(stringId.charAt(stringId.length - 1));
-		this.sprites[player].splice([spriteIndex], 1);
+		game.sprites[player].splice([spriteIndex], 1);
 
-		var retiredSprite = this.createSprite(player);
-		this.endSprites[player].push(retiredSprite);
+		var retiredSprite = game.createSprite(player);
+		game.endSprites[player].push(retiredSprite);
 		
-		this.winCheck(player);
+		game.winCheck(player);
 	},
 	spriteMove: function(sprite, card, player){
 		sprite.position = sprite.position + card;
 
 		var position = sprite.position;
 
-		var boardPosition = position + this.playerConstant[player];
+		var boardPosition = position + game.playerConstant[player];
 		if (boardPosition > 59) {boardPosition = boardPosition - 60;}
 		var grab = "[directionalId = '" + boardPosition.toString() + "']";
 		
 		if (position >= 65) {
-			this.spriteEnd(sprite, player);
+			game.spriteEnd(sprite, player);
 		}
 
 		if ($(grab).hasClass('slideStartA') &&! $(grab).hasClass(player)) {
-			this.spriteSlideA(sprite, boardPosition);
+			game.spriteSlideA(sprite, boardPosition);
 			sprite.position += 3;
 			boardPosition += 3;
 			grab = "[directionalId = '" + boardPosition.toString() + "']";
 			sprite.element.appendTo($(grab));
 		}
 		if ($(grab).hasClass('slideStartB') &&! $(grab).hasClass(player)) {
-			this.spriteSlideB(sprite, boardPosition);
+			game.spriteSlideB(sprite, boardPosition);
 			sprite.position += 4;
 			boardPosition += 4;
 			grab = "[directionalId = '" + boardPosition.toString() + "']";
@@ -354,12 +359,6 @@ var game = {
 		//LOGIC TO EXCHANGE TWO SPRITE POSITIONS
 		//LOGIC TO MAKE START CONDITIONS FOR SORRY CARDX
 	},
-	nextTurn: function(player, card) {
-			if (card !== '2') {
-				player = this.player[i + 1];
-			}
-			else player = this.player[i]
-			},
 	twoCard: function(player){
 
 	},
@@ -370,7 +369,7 @@ var game = {
 		// 		var arrSeven = [n, 7 - n]
 		// 		for (var i = 0; i < 2; i++) {
 		// 			arrSeven[i]
-		// 			this.spriteSelect(player, legalArr);
+		// 			this.listenersOn(player, legalArr);
 		// 			this.spriteMove(sprite, card);
 		// 		}
 
@@ -382,14 +381,14 @@ var game = {
 		//PROMPT USER FOR +10 or -1
 		if (10 === true) {
 			card = 10;
-			this.spriteSelect(player, legalArr);
+			this.listenersOn(player, legalArr);
 			this.spriteMove(sprite, card);
 			this.shuffleDeck();
 			this.nextTurn();
 		}
 		if (-1 === true) {
 			card = -1;
-			this.spriteSelect(player, legalArr);
+			this.listenersOn(player, legalArr);
 			this.spriteMove(sprite, card);
 			this.shuffleDeck();
 			this.nextTurn();
@@ -400,7 +399,7 @@ var game = {
 		//PROMPT USER FOR 11 or SWAP
 		if (11 === true) {
 			card = 11;
-			this.spriteSelect(player, legalArr);
+			this.listenersOn(player, legalArr);
 			this.spriteMove(sprite, card);
 			this.shuffleDeck();
 			this.nextTurn();
@@ -442,11 +441,11 @@ var game = {
 				}
 				else 
 				alert('Choose your piece!');
-				this.spriteSelect(player, legalArr);
+				this.listenersOn(player, legalArr);
 				this.spriteMove(sprite, card, player);
-				this.nextTurn();
-			}
-		},
+				this.turn = this.turn + 1;
+		}
+	},
 	winCheck: function(player){
 		if (this.endSprites[player].length === 4) {
 			alert(player + ' WINS!');
@@ -456,9 +455,11 @@ var game = {
 }
 
 game.renderBoard();
-game.spriteStart('green');
+game.turn =1;
+game.spriteStart();
 game.spriteMove(game.sprites.green[0], 5, 'green')
-game.spriteStart('yellow')
+game.turn= 0;
+game.spriteStart()
 game.spriteMove(game.sprites.yellow[0], 12, 'yellow')
 game.spriteMove(game.sprites.yellow[0], 1, 'yellow')
 game.spriteMove(game.sprites.green[0], 1, 'green')
