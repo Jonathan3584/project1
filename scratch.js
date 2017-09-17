@@ -202,10 +202,12 @@ var game = {
 	    this.renderDeck();
 	    },
 	bumpPiece: function($square){
-		var victimSprite = $square.children()[0];
-		console.log(game.sprites);
-
-		// $square.empty();
+		if ($square.children()[0] !== undefined) {
+		var victimIndex = $square.children(":first").attr('pos');
+		var victimPlayer = $square.children(":first").attr('class').split(' ')[0];
+		game.sprites[victimPlayer].splice([victimIndex], 1);
+		$square.empty();
+		console.log(game.sprites);}
 	},
 	shuffleDeck: function(){
 		console.log(game.card)
@@ -382,15 +384,12 @@ var game = {
 			boardPosition = boardPosition + 3;
 			console.log(boardPosition)
 			grab = "[directionalId = '" + boardPosition.toString() + "']";
-			sprite.element.appendTo($(grab));
 		}
 		if ($(grab).hasClass('slideStartB') &&! $(grab).hasClass(player)) {
 			game.spriteSlideB(sprite, boardPosition);
 			sprite.position = sprite.position + 4;
 			boardPosition = boardPosition + 4;
 			grab = "[directionalId = '" + boardPosition.toString() + "']";
-			sprite.element.appendTo($(grab));
-			// game.turn = game.turn +1;
 		}
 		if (position >= 60) {
 			var safePosition = position - 59;
@@ -401,7 +400,6 @@ var game = {
 
 		else 
 			game.bumpPiece($(grab));
-			console.log(sprite);
 			sprite.element.appendTo($(grab))
 			
 
