@@ -201,8 +201,11 @@ var game = {
 	      }
 	    this.renderDeck();
 	    },
-	bumpPiece: function(id){
-		//remove victimSprite from board and from this.sprites.player[]
+	bumpPiece: function($square){
+		var victimSprite = $square.children()[0];
+		console.log(game.sprites);
+
+		// $square.empty();
 	},
 	shuffleDeck: function(){
 		console.log(game.card)
@@ -212,9 +215,11 @@ var game = {
 		}
 	},
 	legalStart: function(player){
-	
+
 			if (player === 'yellow' && $('#252').children()[0].classList.contains(player) === false) {
-				return true
+				console.log(('#252').children()[0].classList);
+			
+				return true;
 			}
 			if (player === 'green' && $('#192').children()[0].classList.contains(player) === false) {
 				return true
@@ -226,29 +231,34 @@ var game = {
 			// }
 			if (player === 'blue' && $('#63').children()[0].classList.contains(player) === false) {
 				return true
-			}
+		}
+			else return false;
+			
 	},
 	checkLegalMove: function(player){
 		var legalArr = [];
-		var playerArr = this.sprites[player];
+		var playerArr = game.sprites[player];
+		var startCheck = game.legalStart(player);
 		for (var i = 0; i < playerArr.length; i++) {
-			var position = this.sprites[player][i].position + game.card;
-			var boardPosition = position + this.playerConstant[player];
+			var position = game.sprites[player][i].position + game.card;
+			var boardPosition = position + game.playerConstant[player];
 			var grab = "[directionalId = '" + boardPosition.toString() + "']";
 			console.log(grab);
 			if ($(grab).children().length === 0) {
-				legalArr.push(this.sprites[player][i]);
-				this.sprites[player][i].element.addClass('highlighted');
+				legalArr.push(game.sprites[player][i]);
+				game.sprites[player][i].element.addClass('highlighted');
 				}
 			if ($(grab).children().length > 0 
 				&& $(grab).children()[0].classList.contains(player) === false) {
-				legalArr.push(this.sprites[player][i]);
-				this.sprites[player][i].element.addClass('highlighted');
+				legalArr.push(game.sprites[player][i]);
+				game.sprites[player][i].element.addClass('highlighted');
 				}
 		}
-		if ((this.sprites[player].length + this.endSprites[player].length) &&
-				legalStart(player) === true) {
-			$('.stage').addClass('highlighted')
+		if ((game.sprites[player].length + game.endSprites[player].length) < 4 &&
+				startCheck === true && 
+				game.card < 3) {
+			$('.stage').addClass('highlighted');
+			$('.stage').on('click', this.spriteStart);
 		}
 		console.log(legalArr)
 		return this.listenersOn(legalArr, player);
@@ -273,8 +283,9 @@ var game = {
 		var spriteObject = game.sprites[player][y]
 		$('.stage').off('click', this.spriteStart);
 		$('.stage').removeClass('highlighted')
-		$(this).off('click', this.selectSprite);
-		$(this).removeClass('highlighted');
+		$('.sprite').off('click', this.selectSprite);
+
+		$('.sprite').removeClass('highlighted');
 		game.spriteMove(spriteObject, player);
 	},
 	listenersOn: function(legalArr, player){
@@ -282,9 +293,6 @@ var game = {
 		for (i = 0; i < legalArr.length; i++) {
 			var legalSprite = legalArr[i];
 			legalSprite.element.on('click', this.selectSprite)
-		}
-		if ((this.sprites[player].length + this.endSprites[player].length) < 4) {
-			$('.stage').on('click', this.spriteStart);
 		}
 	},
 	createSprite: function($sprite, player) {
@@ -296,7 +304,9 @@ var game = {
 	},
 	spriteStart: function(){
 		$('.stage').off('click', this.spriteStart);
-		$('.stage').removeClass('highlighted')
+		$('.stage').removeClass('highlighted');
+		$('.sprite').off('click', this.selectSprite);
+		$('.sprite').removeClass('highlighted');
 		var player = game.player[game.turn];
 		console.log(game.sprites[player].length + game.endSprites[player].length)
 		if ((game.sprites[player].length + game.endSprites[player].length) < 4) {
@@ -312,15 +322,19 @@ var game = {
 			$sprite.attr('id', id);
 
 			if (player === 'yellow') {
-				$sprite.appendTo("#252")
+				game.bumpPiece($("#252"));
+				$sprite.appendTo("#252");
 			}
 			if (player === 'green') {
-				$sprite.appendTo("#192")
+				game.bumpPiece($("#192"));
+				$sprite.appendTo("#192");
 			}
 			if (player === 'red') {
+				game.bumpPiece($("#3"));
 				$sprite.appendTo("#3")
 			}
 			if (player === 'blue') {
+				game.bumpPiece($("#63"));
 				$sprite.appendTo("#63")
 			}
 		}
@@ -364,16 +378,16 @@ var game = {
 
 		if ($(grab).hasClass('slideStartA') &&! $(grab).hasClass(player)) {
 			game.spriteSlideA(sprite, boardPosition);
-			sprite.position += 3;
-			boardPosition += 3;
+			sprite.position = sprite.position + 3;
+			boardPosition = boardPosition + 3;
+			console.log(boardPosition)
 			grab = "[directionalId = '" + boardPosition.toString() + "']";
 			sprite.element.appendTo($(grab));
-			// game.turn = game.turn +1;
 		}
 		if ($(grab).hasClass('slideStartB') &&! $(grab).hasClass(player)) {
 			game.spriteSlideB(sprite, boardPosition);
-			sprite.position += 4;
-			boardPosition += 4;
+			sprite.position = sprite.position + 4;
+			boardPosition = boardPosition + 4;
 			grab = "[directionalId = '" + boardPosition.toString() + "']";
 			sprite.element.appendTo($(grab));
 			// game.turn = game.turn +1;
@@ -385,7 +399,12 @@ var game = {
 			// game.turn = game.turn +1;
 		}
 
-		else sprite.element.appendTo($(grab));
+		else 
+			game.bumpPiece($(grab));
+			console.log(sprite);
+			sprite.element.appendTo($(grab))
+			
+
 		// game.turn = game.turn +1;
 			
 		
@@ -487,6 +506,19 @@ var game = {
 }
 
 game.renderBoard();
+game.card = 5;
+game.spriteStart()
+game.spriteMove(game.sprites.yellow[0], 'yellow')
+game.spriteMove(game.sprites.yellow[0], 'yellow')
+game.spriteStart()
+game.card = 1;
+game.turn = 1;
+game.spriteStart()
+game.card = 3;
+
+game.checkLegalMove('yellow')
+// game.checkLegalMove('yellow')
+// game.card = 3;
 
 
 
