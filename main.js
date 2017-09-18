@@ -383,28 +383,42 @@ var game = {
 		$('.stage').removeClass('highlighted');
 		$('.sprite').off('click', this.selectSprite);
 		$('.sprite').removeClass('highlighted');
+		
 		var player = game.player[game.turn];
 		console.log(game.sprites[player].length + game.endSprites[player].length)
+		
 		if (player === 'yellow' && $('#236').children().length > 0) {
 			game.bumpPiece($('#252'));
+			var stringId = $('#236').children(":first").attr('id');
+			var bumpIndex = parseInt(stringId.charAt(stringId.length-1));
+			game.sprites[player][bumpIndex].position = 0;
 			$('#236').children(":first").appendTo('#252');
 			game.nextTurn();
 			return;
 		}
 		if (player === 'green' && $('#193').children().length > 0) {
-			game.bumpPiece($('192'));
+			game.bumpPiece($('#192'));
+			var stringId = $('#193').children(":first").attr('id');
+			var bumpIndex = parseInt(stringId.charAt(stringId.length-1));
+			game.sprites[player][bumpIndex].position = 0;
 			$('#193').children(":first").appendTo('#192');
 			game.nextTurn();
 			return;
 		}
 		if (player === 'red' && $('#19').children().length > 0) {
 			game.bumpPiece($('#3'));
+			var stringId = $('#19').children(":first").attr('id');
+			var bumpIndex = parseInt(stringId.charAt(stringId.length-1));
+			game.sprites[player][bumpIndex].position = 0;
 			$('#19').children(":first").appendTo('#3');
 			game.nextTurn();
 			return;
 		}
 		if (player === 'blue' && $('#62').children().length > 0) {
-			game.bumpPiece($('63'));
+			game.bumpPiece($('#63'));
+			var stringId = $('#62').children(":first").attr('id');
+			var bumpIndex = parseInt(stringId.charAt(stringId.length-1));
+			game.sprites[player][bumpIndex].position = 0;
 			$('#62').children(":first").appendTo('#63');
 			game.nextTurn();
 			return;
@@ -444,13 +458,18 @@ var game = {
 	},
 	spriteSlideA: function(boardPosition){
 			for (var i = 0; i < 4; i++) {
+
 			var bumpSquare = "[directionalId = '" + (boardPosition + i).toString() + "']";
+			console.log($(bumpSquare));
+			console.log(typeof(bumpSquare));
 			game.bumpPiece($(bumpSquare));
 			}
 	},
 	spriteSlideB: function(boardPosition){
 			for (var i = 0; i < 5; i++) {
 			var bumpSquare = "[directionalId = '" + (boardPosition + i).toString() + "']";
+			console.log($(bumpSquare));	
+			console.log(typeof(bumpSquare));			
 			game.bumpPiece($(bumpSquare));
 			}
 	},
@@ -482,15 +501,19 @@ var game = {
 
 		if (position >= 60 && position < 65) {
 			var safePosition = position - 59;
-			var safeGrab = "[safetyID = '" + player.charAt(0) + safePosition.toString() + "]'";
+			var safeGrab = "[safetyID= '" + player.charAt(0) + safePosition.toString() + "]'";
 			console.log(safeGrab);
+			console.log($(safeGrab));
+
 			sprite.element.appendTo($(safeGrab));
 			
 			game.nextTurn();
+			return
 		}		
 
 		if (position >= 65) {
 			game.spriteEnd(sprite);
+			return
 		}
 
 		else {
@@ -500,14 +523,14 @@ var game = {
 			var grab = "[directionalId = '" + boardPosition.toString() + "']";
 		
 			if ($(grab).hasClass('slideStartA') &&! $(grab).hasClass(player)) {
-				game.spriteSlideA(sprite, boardPosition);
+				game.spriteSlideA(boardPosition);
 				sprite.position = sprite.position + 3;
 				boardPosition = boardPosition + 3;
 				console.log(boardPosition)
 				grab = "[directionalId = '" + boardPosition.toString() + "']";
 			}
 			if ($(grab).hasClass('slideStartB') &&! $(grab).hasClass(player)) {
-				game.spriteSlideB(sprite, boardPosition);
+				game.spriteSlideB(boardPosition);
 				sprite.position = sprite.position + 4;
 				boardPosition = boardPosition + 4;
 				grab = "[directionalId = '" + boardPosition.toString() + "']";
@@ -596,14 +619,8 @@ var game = {
 		if (this.endSprites[player].length === 4) {
 			alert(player + ' WINS!');
 		}
-		else {
-			alert ('Next player draws!');
-			game.turn = game.turn +1;
-			if (game.turn > 3) {
-			game.turn = game.turn - 4;
-			}
 		}
-}
+
 
 }
 
