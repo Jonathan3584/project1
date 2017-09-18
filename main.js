@@ -501,7 +501,7 @@ var game = {
 
 		if (position >= 60 && position < 65) {
 			var safePosition = position - 59;
-			var safeGrab = "[safetyID= '" + player.charAt(0) + safePosition.toString() + "]'";
+			var safeGrab = "[safetyid = '" + player.charAt(0) + safePosition.toString() + "']";
 			console.log(safeGrab);
 			console.log($(safeGrab));
 
