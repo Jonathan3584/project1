@@ -15,7 +15,7 @@ const globalDeck = [
 		3, 3, 3, 3,
 		4, 4, 4, 4,
 		5, 5, 5, 5,
-		// 'sorry', 'sorry', 'sorry', 'sorry',
+		'sorry', 'sorry', 'sorry', 'sorry',
 		7, 7, 7, 7,
 		8, 8, 8, 8,
 		10, 10, 10, 10,
@@ -178,11 +178,11 @@ var game = {
 	},
 	renderBoard: function(){
 		var idCounter = 0;
-	//clear board div
+	
 		var $board = $('#board').empty();
-	      //access squares array to set content
-	      this.squares = [];
-	      //create board
+	      
+	      game.squares = [];
+	      
 	      for(var r = 0; r < 16; r++){
 	        var $row = $('<div>')
 	          .addClass('row')
@@ -197,11 +197,11 @@ var game = {
 	              .attr('id', idCounter)
 	              idCounter = idCounter +1;
 	            var square = this.createSquare(r, c, $square);
-	            this.squares.push(square);
-	            this.squareClass($square);
+	            game.squares.push(square);
+	            game.squareClass($square);
 	          }
 	      }
-	    this.renderDeck();
+	    game.renderDeck();
 	    },
 	bumpPiece: function($square){
 		if ($square.children()[0] !== undefined) {
@@ -224,7 +224,7 @@ var game = {
 			$square.children(":first").appendTo('#193')
 		}
 
-		game.sprites[victimPlayer][victimIndex].position = - 1;
+		game.sprites[victimPlayer][victimIndex].position = null;
 
 		console.log(game.sprites);}
 	},
@@ -304,15 +304,15 @@ var game = {
 			var boardPosition = position + game.playerConstant[player];
 			var grab = "[directionalId = '" + boardPosition.toString() + "']";
 			console.log(grab);
-			if ($(grab).children().length === 0 &&
-				game.sprites[player][i].position >= 0 &&
-				game.sprites[player][i].position < 65) {
+			if ($(grab).children().length === 0 
+				&& game.sprites[player][i].position !== null 
+				&& game.sprites[player][i].position < 65) {
 				legalArr.push(game.sprites[player][i]);
 				game.sprites[player][i].element.addClass('highlighted');
 				}
 			if ($(grab).children().length > 0 
 				&& $(grab).children()[0].classList.contains(player) === false 
-				&& game.sprites[player][i].position >= 0 
+				&& game.sprites[player][i].position !== null 
 				&& game.sprites[player][i].position < 65) {
 				legalArr.push(game.sprites[player][i]);
 				game.sprites[player][i].element.addClass('highlighted');
@@ -368,7 +368,7 @@ var game = {
 		var selectedSprite = '';
 		for (i = 0; i < legalArr.length; i++) {
 			var legalSprite = legalArr[i];
-			legalSprite.element.on('click', this.selectSprite)
+			legalSprite.element.on('click', game.selectSprite)
 		}
 	},
 	createSprite: function($sprite, player) {
@@ -460,21 +460,16 @@ var game = {
 			for (var i = 0; i < 4; i++) {
 
 			var bumpSquare = "[directionalId = '" + (boardPosition + i).toString() + "']";
-			console.log($(bumpSquare));
-			console.log(typeof(bumpSquare));
 			game.bumpPiece($(bumpSquare));
 			}
 	},
 	spriteSlideB: function(boardPosition){
 			for (var i = 0; i < 5; i++) {
 			var bumpSquare = "[directionalId = '" + (boardPosition + i).toString() + "']";
-			console.log($(bumpSquare));	
-			console.log(typeof(bumpSquare));			
 			game.bumpPiece($(bumpSquare));
 			}
 	},
 	spriteEnd: function(sprite, player){
-				//If there is a failute with this code, check PLAYER INPUT and NEXT TURN CODE
 		var player = game.player[game.turn];
 		var stringId = sprite.element.attr('id');
 		console.log(stringId);
@@ -487,14 +482,20 @@ var game = {
 		game.winCheck(player);
 		
 		game.nextTurn();
-
-
 	},
 	spriteMove: function(sprite){
 
 		var player = game.player[game.turn];
-		console.log(sprite.position)
-		sprite.position = sprite.position + game.card;
+		console.log(sprite.position);
+		var movement = game.card
+		if (game.card === 4) {
+			movement = -4;
+		}
+		if (sprite.position < 0) {
+			sprite.position = sprite.position + 60;
+		}
+
+		sprite.position = sprite.position + movement;
 		var position = sprite.position;
 
 		console.log(position)
@@ -541,77 +542,68 @@ var game = {
 			
 			game.nextTurn();
 		}
-
-		// game.turn = game.turn +1;
-			
-		
 	},
-	exchangeSprites: function(sprite, enemySprite) {
-		//LOGIC TO EXCHANGE TWO SPRITE POSITIONS
-		//LOGIC TO MAKE START CONDITIONS FOR SORRY CARDX
-	},
-	twoCard: function(player){
-
-	},
-	sevenCard: function(player){
-		var x = 0;
-				// DETERMINE LEGAL ARRAY
-		// 		// var n = USER INPUT FOR parts of seven;
-		// 		var arrSeven = [n, 7 - n]
-		// 		for (var i = 0; i < 2; i++) {
-		// 			arrSeven[i]
-		// 			this.listenersOn(player, legalArr);
-		// 			this.spriteMove(sprite, card);
-		// 		}
-
-		// 		
-		// 		this.nextTurn();
-		},
-	tenCard: function(player){
-		//DETERMINE LEGAL ARRAY
-		//PROMPT USER FOR +10 or -
-	},
-	elevenCard: function(player){
-		//DETERMINE LEGAL ARRAY
-		//PROMPT USER FOR 11 or SWAP
-		
+	sorryListeners: function () {
+		var player = game.player[game.turn];
+		console.log($('.sprite').hasClass(player))
+			$('.sprite').on('click', game.sorryCard);
+			$('.sprite').addClass('highlighted');
 	},
 	sorryCard: function(){
-		//PROMPT FOR ENEMY SPRITE SELECTION
-		if (sprites.length + endSprites.length <= 3) {
-			eschangeSprites()
-		}
+
+		var player = game.player[game.turn];
+		var newSquare = $(this).parent();
+		$('.sprite').off('click', game.sorryCard);
+		$('.sprite').removeClass('highlighted');
+		game.bumpPiece(newSquare);
+		
+
+		var $sprite = $('<div>')
+			.attr('pos', 0)
+			.addClass(player)
+			.addClass('sprite');
+			
+			var sprite = game.createSprite($sprite, player);
+			game.sprites[player].push(sprite);
+			console.log(game.sprites);
+			console.log(player);
+			var id = player + (game.sprites[player].length -1);
+			$sprite.attr('id', id);
+
+			$sprite.appendTo(newSquare);
+			game.nextTurn();
+
+		
 	},
 	handleTurn: function(){
 
 		var player = game.player[game.turn];
-			// if (game.card === '2') {
-			// 	this.twoCard(player);
-			// }
-			// if (game.card === '7') {
-			// 	this.sevenCard(player);
-			// }
-			// if (game.card === '10') {
-			// 	this.tenCard(player);
-			// }
-			// if (game.card === '11') {
-			// 	this.elevenCard();
-			// }
-			// if (game.card === 'sorry') {
-			// 	this.sorryCard(player);
-			// }
-			// else {
-			
+			if (game.card === 'sorry') {
+				if(game.sprites[player].length <4 &&
+					game.sprites['yellow'].length + 
+					game.sprites['red'].length + 
+					game.sprites['green'].length + 
+					game.sprites['blue'].length -
+					game.sprites[player].length > 0){
+					game.sorryListeners();
+				}
+				else {
+					alert('No legal moves! Next player draws!');
+					game.nextTurn();
+					return;
+				}
+			}
 			game.checkLegalMove(player);
 	},
 	nextTurn: function(){
 			$('#deck0').on('click', game.drawCard);
 			$('#deck0').addClass('highlighted');
-			
+			if (game.card !== 2) { 
 			game.turn = game.turn +1;
 			if (game.turn > 3) {
 			game.turn = game.turn - 4;
 		}
+	}
 		$('.name').get(game.turn).className += ' highlighted';
 	},
 
