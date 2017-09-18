@@ -41,16 +41,16 @@ font-size: 40px;
 	margin: auto;
 }
 #green {
-background-color: lightgreen;
+background-color: green;
 }
 #yellow {
-background-color: lightyellow;
+background-color: yellow;
 }
 #blue {
-background-color: lightblue;
+background-color: blue;
 }
 #red {
-background-color: pink;
+background-color: red;
 }
 .sprite {
 	width: 20px;
@@ -113,7 +113,6 @@ background-color: pink;
 	border: 1px solid black;
 }
 .highlighted {
-	background-color: black;
 	opacity: .5;
 }
 /*MAKE A DETERMINATION ON WHETHER OR NOT SPRITES AND SQUARES CAN SHARE COLOR CLASSES*/
