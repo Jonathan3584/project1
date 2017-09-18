@@ -15,7 +15,7 @@ const globalDeck = [
 		3, 3, 3, 3,
 		4, 4, 4, 4,
 		5, 5, 5, 5,
-		'sorry', 'sorry', 'sorry', 'sorry',
+		// 'sorry', 'sorry', 'sorry', 'sorry',
 		7, 7, 7, 7,
 		8, 8, 8, 8,
 		10, 10, 10, 10,
@@ -218,21 +218,39 @@ var game = {
 	},
 	legalStart: function(player){
 
-			if (player === 'yellow' && $('#252').children()[0].classList.contains(player) === false) {
-				console.log(('#252').children()[0].classList);
-			
+			if (player === 'yellow' && 
+				$('#252').children()[0] === undefined) {
+				return true
+			}
+			if (player === 'yellow' &&
+				 $('#252').children()[0].classList.contains(player) === false) {
 				return true;
 			}
-			if (player === 'green' && $('#192').children()[0].classList.contains(player) === false) {
-				return true
+			if (player === 'green' &&	
+				$('#192').children()[0] === undefined) {
+				return true;
+			}
+			if (player === 'green' &&
+				$('#192').children()[0].classList.contains(player) === false) {
+				return true;
 			}
 			// }
-			if (player === 'red' && $('#3').children()[0].classList.contains(player) === false) {
-				return true
+			if (player === 'red' && 
+				$('#3').children()[0] === undefined) {
+				return true;
+			}
+			if (player === 'red' &&
+				$('#3').children()[0].classList.contains(player) === false) {
+				return true;
 			}
 			// }
-			if (player === 'blue' && $('#63').children()[0].classList.contains(player) === false) {
-				return true
+			if (player === 'blue' && 
+					$('#63').children()[0] === undefined) {
+				return true;
+			}
+			if (player === 'blue' && 
+					$('#63').children()[0].classList.contains(player) === false) {
+				return true;
 		}
 			else return false;
 			
@@ -241,6 +259,7 @@ var game = {
 		var legalArr = [];
 		var playerArr = game.sprites[player];
 		var startCheck = game.legalStart(player);
+		console.log(startCheck)
 		for (var i = 0; i < playerArr.length; i++) {
 			var position = game.sprites[player][i].position + game.card;
 			var boardPosition = position + game.playerConstant[player];
@@ -259,11 +278,21 @@ var game = {
 		if ((game.sprites[player].length + game.endSprites[player].length) < 4 &&
 				startCheck === true && 
 				game.card < 3) {
+				console.log('made it')
 			$('.stage').addClass('highlighted');
 			$('.stage').on('click', this.spriteStart);
 		}
 		console.log(legalArr)
-		return this.listenersOn(legalArr, player);
+		if (legalArr.length === 0) {
+			alert ('No legal moves! Next player draws!');
+			game.turn = game.turn +1;
+			if (game.turn > 3) {
+			game.turn = game.turn - 4;
+			}
+		}
+		else {
+			return this.listenersOn(legalArr, player);
+		}
 	},
 	drawCard: function(){
 		var length = game.deck.length;
@@ -311,7 +340,6 @@ var game = {
 		$('.sprite').removeClass('highlighted');
 		var player = game.player[game.turn];
 		console.log(game.sprites[player].length + game.endSprites[player].length)
-		if ((game.sprites[player].length + game.endSprites[player].length) < 4) {
 		var $sprite = $('<div>')
 			.attr('pos', 0)
 			.addClass(player)
@@ -320,10 +348,12 @@ var game = {
 			var sprite = game.createSprite($sprite, player);
 			game.sprites[player].push(sprite);
 			console.log(game.sprites);
+			console.log(player);
 			var id = player + (game.sprites[player].length -1);
 			$sprite.attr('id', id);
 
 			if (player === 'yellow') {
+				console.log(game.sprites);
 				game.bumpPiece($("#252"));
 				$sprite.appendTo("#252");
 			}
@@ -339,8 +369,12 @@ var game = {
 				game.bumpPiece($("#63"));
 				$sprite.appendTo("#63")
 			}
+		
+		alert ('Next player draws!');
+		game.turn = game.turn +1;
+		if (game.turn > 3) {
+		game.turn = game.turn - 4;
 		}
-		// game.turn = game.turn +1;
 	},
 	spriteSlideA: function(player, boardPosition){
 			for (var i = 0; i < 4; i++) {
@@ -362,7 +396,6 @@ var game = {
 
 		var retiredSprite = game.createSprite(player);
 		game.endSprites[player].push(retiredSprite);
-		// game.turn = game.turn +1;
 		game.winCheck(player);
 
 	},
@@ -395,13 +428,22 @@ var game = {
 			var safePosition = position - 59;
 			var safeGrab = "[safetyID = '" + player.charAt(0) + safePosition.toString() + "'";
 			sprite.element.appendTo($(safeGrab));
-			// game.turn = game.turn +1;
+			alert ('Next player draws!');
+			game.turn = game.turn +1;
+			if (game.turn > 3) {
+			game.turn = game.turn - 4;
+		}
 		}
 
 		else 
 			game.bumpPiece($(grab));
 			sprite.element.appendTo($(grab))
-			
+
+			alert ('Next player draws!');
+			game.turn = game.turn +1;
+			if (game.turn > 3) {
+			game.turn = game.turn - 4;
+			}
 
 		// game.turn = game.turn +1;
 			
@@ -464,59 +506,46 @@ var game = {
 			eschangeSprites()
 		}
 	},
-	handleTurn: function(PLACEHOLDER){
+	handleTurn: function(){
 
-		var player = this.player[i];
-			if (game.card === '2') {
-				this.twoCard(player);
-			}
-			if (game.card === '7') {
-				this.sevenCard(player);
-			}
-			if (game.card === '10') {
-				this.tenCard(player);
-			}
-			if (game.card === '11') {
-				this.elevenCard();
-			}
-			if (game.card === 'sorry') {
-				this.sorryCard(player);
-			}
-			else {
-			this.checkLegalMove(player);
-				if (legalArr.length === 0) {
-					return alert('Sorry! No legal moves!');
-				}
-				else 
-				alert('Choose your piece!');
-				this.listenersOn(player, legalArr);
-				this.spriteMove(sprite, player);
-				this.turn = this.turn + 1;
-				if (this.turn > 3) {this.turn = this.turn - 4}
-		}
+		var player = game.player[game.turn];
+			// if (game.card === '2') {
+			// 	this.twoCard(player);
+			// }
+			// if (game.card === '7') {
+			// 	this.sevenCard(player);
+			// }
+			// if (game.card === '10') {
+			// 	this.tenCard(player);
+			// }
+			// if (game.card === '11') {
+			// 	this.elevenCard();
+			// }
+			// if (game.card === 'sorry') {
+			// 	this.sorryCard(player);
+			// }
+			// else {
+			game.checkLegalMove(player);
 	},
+
 	winCheck: function(player){
 		if (this.endSprites[player].length === 4) {
 			alert(player + ' WINS!');
 		}
-	}
+		else {
+			alert ('Next player draws!');
+			game.turn = game.turn +1;
+			if (game.turn > 3) {
+			game.turn = game.turn - 4;
+			}
+		}
+}
 
 }
 
 game.renderBoard();
-game.card = 5;
-game.spriteStart()
-game.spriteMove(game.sprites.yellow[0], 'yellow')
-game.spriteMove(game.sprites.yellow[0], 'yellow')
-game.spriteStart()
-game.card = 1;
-game.turn = 1;
-game.spriteStart()
-game.card = 3;
 
-game.checkLegalMove('yellow')
-// game.checkLegalMove('yellow')
-// game.card = 3;
+
 
 
 
