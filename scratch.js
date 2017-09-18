@@ -278,12 +278,11 @@ var game = {
 		if ((game.sprites[player].length + game.endSprites[player].length) < 4 &&
 				startCheck === true && 
 				game.card < 3) {
-				console.log('made it')
 			$('.stage').addClass('highlighted');
 			$('.stage').on('click', this.spriteStart);
 		}
 		console.log(legalArr)
-		if (legalArr.length === 0) {
+		if (legalArr.length === 0 && game.card > 2) {
 			alert ('No legal moves! Next player draws!');
 			game.turn = game.turn +1;
 			if (game.turn > 3) {
@@ -298,11 +297,13 @@ var game = {
 		var length = game.deck.length;
 		var randIndex = Math.floor(Math.random()*length);
 		var card = game.deck[randIndex];
-		$('#deck1').text(card)
 		game.deck.splice(randIndex, 1);
+		console.log(game.deck.length)
 		game.card = card;
+		$('#deck1').text(game.card);
 		game.shuffleDeck();
 		game.handleTurn();
+		console.log(game.turn);
 	},	
 	selectSprite: function(){
 
@@ -391,7 +392,7 @@ var game = {
 	spriteEnd: function(sprite, player){
 		var strPlayer = "[id ='" + player + "']";
 		sprite.element.appendTo($(strPlayer));
-
+		var spriteIndex = parseInt(stringId.charAt(stringId.length - 1));
 		game.sprites[player].splice([spriteIndex], 1);
 
 		var retiredSprite = game.createSprite(player);
@@ -525,6 +526,7 @@ var game = {
 			// 	this.sorryCard(player);
 			// }
 			// else {
+			
 			game.checkLegalMove(player);
 	},
 
