@@ -82,3 +82,29 @@ spriteMove: function(sprite, card, player){
 				this.turn = this.turn + 1;
 				if (this.turn > 3) {this.turn = this.turn - 4}
 		}
+
+
+		if ($square.children()[0] !== undefined) {
+		if($square.children(":first").attr('class').split(' ')[0] === 'yellow') {
+			$square.children(":first").appendTo('#236')
+		}
+		if($square.children(":first").attr('class').split(' ')[0] === 'red'){
+			$square.children(":first").appendTo('#19')
+		}
+		if($square.children(":first").attr('class').split(' ')[0] === 'blue'){
+			$square.children(":first").appendTo('#62')
+		}
+		if($square.children(":first").attr('class').split(' ')[0] === 'green'){
+			$square.children(":first").appendTo('#193')
+		}
+		$square.empty();
+		console.log(game.sprites);}
+
+
+
+
+
+game.sprites[victimPlayer][victimIndex].position = - 1;
+
+
+

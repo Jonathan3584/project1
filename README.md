@@ -1,4 +1,4 @@
-# project1
+# project1j
 Game Project for WDI
 
 
@@ -6,26 +6,32 @@ Name of the Game:  Sorry!
 
 Rules (pulled from Wikipedia):
 
-Each player chooses four pawns of one color and places them in his or her Start. One player is selected to play first.
+I used object oriented programming to build my game as an object with functions as many of the values.  For some items, such as the deck, or squares that behave in a given manner, I created global variables with arrays of information that could be referenced by the object but left unchanged.
 
-Each player in turn draws one card from the deck and follows its instructions. To begin the game, all of a player's four pawns are restricted to Start; a player can only move them out onto the rest of the board if he or she draws a 1 or 2 card. A 1 or a 2 places a pawn on the space directly outside of start (a 2 does not entitle the pawn to move a second space).
+The approach I took was to write a skeleton of known functions (drawCard, moveSprite, etc) and write the logic for them as individual values in the game object.  As they required further functionality, I did my best to break them down into smaller functions that could reference once another.  I was successful using this model, but ran into many functions that required a huge number of logical conditionals.  Some of these functions, such as the "spriteMove" function ballooned.
 
-The Relaxation Start: When a young player is playing, especially when learning the game of Sorry!, a relaxation is offered in allowing one of his or her pawns to begin the game already on the board, on the space directly outside his or her Start, as the tedium of waiting for a 1 or a 2 can be wearisome even for experienced players.
+I looked at the path a sprite takes in the game as a linear journey from 0 to 65.  Each player has a defined start point and end point -- this is accounted for by a player constant.
 
-A pawn can jump over any other pawn during its move. However, two pawns cannot occupy the same square; a pawn that lands on a square occupied by another player's pawn "bumps" that pawn back to its own Start. Players can not bump their own pawns back to Start; if the only way to complete a move would result in a player bumping his or her own pawn, the player's pawns remain in place and the player loses his or her turn.
+The game does not start with pieces on the board, so a function was written to introduce and append game pieces when conditions are met to start.  The program also prevents the player from introducing more game pieces than are allowed.
 
-If a pawn lands at the start of a slide (except those of its own color), either by direct movement or as the result of a switch from an 11 card or a Sorry card, it immediately "slides" to the last square of the slide. All pawns on all spaces of the slide (including those belonging to the sliding player) are sent back to their respective Starts.[4]
+Win conditions are assessed based on array lengths.
 
-The last five squares before each player's Home are "Safety Zones", and are specially colored corresponding to the colors of the Homes they lead to. Access is limited to pawns of the same color. Pawns inside the Safety Zones are immune to being bumped by opponent's pawns or being switched with opponents' pawns via 11 or Sorry! cards. However, if a pawn is forced via a 10 or 4 card to move backwards out of the Safety Zone, it is no longer considered "safe" and may be bumped by or switched with opponents' pawns as usual until it re-enters the Safety Zone.
+Pieces are manipulated by click listeners, but are automatically moved the number of squares that the cards require.
+
+One of the more difficult undertakings of this project was creating the conditions to insure that a player made a legal move.  My legal move conditions are robust, and the player will only be presented with legal moves.  When no legal move is available, the game will automatically pass on to the next player.
+
+Problems that still remain are the alternative actions associated with 7, 10, and 11 cards in the traditional game.  These present options of movement to the user.
+
+The game could also use more time in styling.  Because of the board size, it was not reasonable to institute media queries for smaller screens.  The styling was rushed because I prioritized debugging.  The logic of this game was a more compelling challenge than the styling, which I will update later. 
 
 Minimum viable product:
 
--As a user, I need an accurate game board with sprites.
--As a user, I need deck randomizer set to Sorry! deck specs.
--As a user, I need piece movement linked to the deck randomizer.
--As a user, I need limitations to insure start conditions are met.
--As a user, I need acknowledgement of win conditions.
--As a user, I need playability for 2 players.
+-As a user, I need an accurate game board with sprites.  DONE
+-As a user, I need deck randomizer set to Sorry! deck specs.  DONE
+-As a user, I need piece movement linked to the deck randomizer.  DONE
+-As a user, I need limitations to insure start conditions are met.  DONE
+-As a user, I need acknowledgement of win conditions.  DONE
+-As a user, I need playability for 2 players.  DONE
 
 
 Reach Goals: 
@@ -46,13 +52,11 @@ Foreseen challenges:
 -User chooses which of four sprites to apply movement to.
 -Sprites on same square logic differs.
 
-Technology I intend to use:
+Technology I used:
 
--Vanilla Javascript with jquery as needed for core game logic and DOM manipulation.
--HTML for the creation of the page and elements of the board / sprites / cards.
--CSS for styling all elements of the game and adding animation effects.
--Skeleton for instituting responsiveness.  
-
+-Vanilla Javascript with jquery as needed for core game logic and DOM manipulation.  The entire game was built as an object in the DOM.
+-HTML for writing the homepage.  
+-CSS for styling all elements of the game.
 Wire Framing
 
 Landing site:

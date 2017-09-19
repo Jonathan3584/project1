@@ -1,12 +1,27 @@
 body {
 	text-align: center;
 	margin: auto;
+	background-color: rgb(109,225, 232);
 }
 #container{
 	width: 1100px;
+	margin: auto;
+}
+p {
+	text-align: left;
+}
+ul {
+	width: 600px;
+	margin: auto;
+	text-align: left;
+}
+h1 {
+
 }
 #board {
 	display: inline-block;
+	background-image: url("Es0sW2x.jpg");
+	background-size: 100%;
 	width: 800px;
 	height: 800px;
 	margin: auto;
@@ -16,103 +31,211 @@ body {
 	float: right;
 	width: 200px;
 	height: 800px;
-	background-color: gray
 }
 .deck {
 	width: 150px;
-	height: 225px;
+	height: 215px;
 	margin: auto;
-	border: 1px solid black;
+	border: 2px solid black;
 	border-radius: 8px;
 }
 #deck0 {
-background-color: green;
+	background-image: url("Card_back_02.png");
+	background-size: 100%;
+	background-repeat: no-repeat;
+	font-weight: bold
+	padding: auto;
 }
 #deck1 {
-background-color: white;
-font-size: 40px;
+	background-color: white;
+	font-size: 40px;
 }
 .name {
 	width: 175px;
 	height: 80px;
-	border: 1px solid black;
+	border: 2px solid black;
 	border-radius: 8px;
-	
+	opacity: .5;
 	margin: auto;
 }
 #green {
 background-color: green;
+font-size: 20px;
 }
 #yellow {
 background-color: yellow;
+font-size: 20px;
 }
 #blue {
-background-color: blue;
+background-color: rgb(51, 149, 217);
+font-size: 20px;
 }
 #red {
 background-color: red;
+font-size: 20px;
 }
 .sprite {
 	width: 20px;
 	height: 20px;
-	margin: auto;
+	margin: 14px auto;
 	background-color: black;
-	position: relative;
+	vertical-align: center;
 	border: 1px solid black;
+	border-radius: 50%;
 }
 .square {
-	width: 48px;
-	height: 48px;
-	border: 1px solid;
+	width: 50px;
+	height: 50px;
+	/*border: 2px solid;*/
+	margin: auto;
 	display: inline-block;
 	float: left;
 	color: white;
+	border-radius: 4px;
 }
 .normal {
-	background-color: gray;	
-	border: 1px solid black;
+	width: 46px;
+	height: 46px;
+	background-color: white;	
+	border: 2px solid black;
 }
 .safe {
-	background-color: purple;
-	border: 1px solid black;
+	width: 46px;
+	height: 46px;
+	border: 2px solid black;
+	opacity: .65;
 }
 .end {
-	background-color: red;
-	border: 1px solid black;
+	width: 46px;
+	height: 46px;
+	border: 2px solid black;
+	background-color: rebeccapurple;
 }
 .stage {
-	background-color: blue;
-	border: 1px solid black;
-}
-.slideMid {
-	background-color: orange;
-	border: 1px solid black;
+	width: 46px;
+	height: 46px;
+	border: 2px solid black;
 }
 .slideStartA {
+	width: 46px;
+	height: 46px;
 	background-color: pink; 
-	border: 1px solid black;
+	border: 2px solid black;
 }
 .slideStartB {
+	width: 46px;
+	height: 46px;
 	background-color: rebeccapurple; 
-	border: 1px solid black;	
+	border: 2px solid black;	
 }
 .blue {
-	background-color: blue;
-	border: 1px solid black;
+
+	background-color: rgb(51, 149, 217);
+	border: 2px solid black;
 }
 .red {
+
 	background-color: red;
-	border: 1px solid black;
+	border: 2px solid black;
 }
 .green {
 	background-color: green;
-	border: 1px solid black;
+	border: 2px solid black;
 }
 .yellow {
+
 	background-color: yellow;
-	border: 1px solid black;
+	border: 2px solid black;
+}
+.slideStartA.blue{
+	background-color: rgb(51, 149, 217);
+	background-image: url("downArrow.png");
+	background-size: 30px 25px;
+	background-repeat: no-repeat;
+	background-position: center;
+
+}
+.slideStartB.blue{
+	background-color: rgb(51, 149, 217);
+	background-image: url("downArrow.png");
+	background-size: 30px 25px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.slideMid.blue {
+	width: 46px;
+	height: 46px;
+	background-color: lightblue;
+}
+.slideStartA.red{
+	background-color: red;
+	background-image: url("rightArrow.png");
+	background-size: 30px 25px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.slideStartB.red{
+	background-color: red;
+	background-image: url("rightArrow.png");
+	background-size: 30px 25px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.slideMid.red {
+	width: 46px;
+	height: 46px;
+	background-color: pink;
+}
+.slideStartA.yellow{
+	background-color: yellow;
+	background-image: url("leftArrow.png");
+	background-size: 30px 25px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.slideStartB.yellow{
+	background-color: yellow;
+	background-image: url("leftArrow.png");
+	background-size: 30px 25px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.slideMid.yellow {
+	width: 46px;
+	height: 46px;
+	background-color: lightyellow;
+}
+.slideStartA.green{
+	background-color: green;
+	background-image: url("upArrow.png");
+	background-size: 30px 25px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.slideStartB.green{
+	background-color: green;
+	background-image: url("upArrow.png");
+	background-size: 30px 25px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.slideMid.green {
+	width: 46px;
+	height: 46px;
+	background-color: lightgreen;
 }
 .highlighted {
-	opacity: .5;
+	opacity: 1;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
 }
 /*MAKE A DETERMINATION ON WHETHER OR NOT SPRITES AND SQUARES CAN SHARE COLOR CLASSES*/

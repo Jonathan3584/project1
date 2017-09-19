@@ -104,8 +104,7 @@ var game = {
 		if (c === 15) {
 			directionalId = r + 15;
 		}
-		$square.attr('directionalId', directionalId)
-		.text(directionalId);
+		$square.attr('directionalId', directionalId);
 	},
 	safeSpaces: function($square){
 		var safetyId = '';
@@ -127,8 +126,7 @@ var game = {
 			safetyId = "g" + c;
 			$square.addClass('green')
 		}
-		$square.attr('safetyId', safetyId)
-		.text("S" +safetyId);
+		$square.attr('safetyId', safetyId);
 	},
 	slide: function($square){
 		var r = parseInt($square.attr('data-row'));
@@ -156,19 +154,21 @@ var game = {
 				if (r === '0' || r === '15' || c === '0' || c === '15' ) {specialClass = 'normal';}
 				if (ends.includes(id)) {specialClass = 'end';}
 				if (stages.includes(id) === true) {specialClass = 'stage';
-					this.stage($square);
+					game.stage($square);
 				}
 				if (safeZones.includes(id) === true) {specialClass = 'safe';
-					this.safeSpaces($square);
+					game.safeSpaces($square);
 				}
 				if (ends.includes(id) === true) {specialClass = 'end';}
 				if (slideStartA.includes(id) === true) {specialClass = 'slideStartA';
-					this.slide($square);
+					game.slide($square);
 				}
 				if (slideStartB.includes(id) === true) {specialClass = 'slideStartB';
-					this.slide($square);
+					game.slide($square);
 				}
-				if (slideMids.includes(id) === true) {specialClass = 'slideMid';}
+				if (slideMids.includes(id) === true) {specialClass = 'slideMid';
+					game.slide($square);
+				}
 
 				$square.addClass(specialClass);
 				if (r === '0' || r === '15' || c === '0' || c === '15' ) {
