@@ -21,8 +21,10 @@ a {
 }
 #board {
 	display: inline-block;
-	background-image: url("Es0sW2x.jpg");
+	background-image: url("sorry-ubuntu-logo.png");
 	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
 	width: 800px;
 	height: 800px;
 	margin: auto;
