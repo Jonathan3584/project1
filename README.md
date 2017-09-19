@@ -22,7 +22,9 @@ One of the more difficult undertakings of this project was creating the conditio
 
 Problems that still remain are the alternative actions associated with 7, 10, and 11 cards in the traditional game.  These present options of movement to the user.
 
-The game could also use more time in styling.  Because of the board size, it was not reasonable to institute media queries for smaller screens.  The styling was rushed because I prioritized debugging.  The logic of this game was a more compelling challenge than the styling, which I will update later. 
+The game could also use more time in styling.  Because of the board size, it was not reasonable to institute media queries for smaller screens.  The styling was rushed because I prioritized debugging.  The logic of this game was a more compelling challenge than the styling, which I will update later.
+
+It will be an easy upgrade at some point to make the game respond to the number of players.  I did not allocate enough time to do it before the project deadline.
 
 Minimum viable product:
 
