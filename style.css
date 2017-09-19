@@ -1,7 +1,7 @@
 body {
 	text-align: center;
 	margin: auto;
-	background-color: rgb(109,225, 232);
+	background-color: rgb(200, 200, 232);
 }
 #container{
 	width: 1100px;
@@ -60,19 +60,30 @@ a {
 	margin: auto;
 }
 #green {
-background-color: green;
-font-size: 20px;
+background: radial-gradient(ellipse, rgb(0,180,40), rgb(0,180,40), gray);
+	background: -o-radial-gradient(ellipse, rgb(0,180,40), rgb(0,180,40), gray);
+	background: -webkit-radial-gradient(ellipse, rgb(0,180,40), rgb(0,180,40), gray);
+	background: -moz-radial-gradient(ellipse, rgb(0,180,40), rgb(0,180,40), gray);font-size: 20px;
 }
 #yellow {
-background-color: yellow;
+background: radial-gradient(ellipse, rgb(255,225,40), rgb(255,225,40), gray);
+	background: -o-radial-gradient(ellipse, rgb(255,225,40), rgb(255,225,40), gray);
+	background: -webkit-radial-gradient(ellipse, rgb(255,225,40), rgb(255,225,40), gray);
+	background: -moz-radial-gradient(ellipse, rgb(255,225,40), rgb(255,225,40), gray);
 font-size: 20px;
 }
 #blue {
-background-color: rgb(51, 149, 217);
+background: radial-gradient(ellipse, rgb(51, 149, 217), rgb(51, 149, 217), gray);
+	background: -o-radial-gradient(ellipse, rgb(51, 149, 217), rgb(51, 149, 217), gray);
+	background: -webkit-radial-gradient(ellipse, rgb(51, 149, 217), rgb(51, 149, 217), gray);
+	background: -moz-radial-gradient(ellipse, rgb(51, 149, 217), rgb(51, 149, 217), gray);
 font-size: 20px;
 }
 #red {
-background-color: red;
+background: radial-gradient(ellipse, rgb(210,0,65), rgb(210,0,65), gray);
+	background: -o-radial-gradient(ellipse, rgb(210,0,65), rgb(210,0,65), gray);
+	background: -webkit-radial-gradient(ellipse, rgb(210,0,65), rgb(210,0,65), gray);
+	background: -moz-radial-gradient(ellipse, rgb(210,0,65), rgb(210,0,65), gray);
 font-size: 20px;
 }
 .sprite {
@@ -97,20 +108,22 @@ font-size: 20px;
 .normal {
 	width: 46px;
 	height: 46px;
-	background-color: white;	
+	background: radial-gradient(circle, white, white, lightgray);	
+	background: -o-radial-gradient(circle, white, white, lightgray);
+	background: -webkit-radial-gradient(circle, white, white, lightgray);
+	background: -moz-radial-gradient(circle, white, white, lightgray);
 	border: 2px solid black;
 }
 .safe {
 	width: 46px;
 	height: 46px;
 	border: 2px solid black;
-	opacity: .65;
+	/*opacity: .65;*/
 }
 .end {
 	width: 46px;
 	height: 46px;
 	border: 2px solid black;
-	background-color: rebeccapurple;
 }
 .stage {
 	width: 46px;
@@ -136,95 +149,147 @@ font-size: 20px;
 }
 .red {
 
-	background-color: red;
+	background-color: rgb(210,0,65);
 	border: 2px solid black;
 }
 .green {
-	background-color: green;
+	background-color: rgb(0,180,40);
 	border: 2px solid black;
 }
 .yellow {
 
-	background-color: yellow;
+	background-color: rgb(255,225,40);
 	border: 2px solid black;
 }
 .slideStartA.blue{
-	background-color: rgb(51, 149, 217);
-	background-image: url("downArrow.png");
-	background-size: 30px 25px;
-	background-repeat: no-repeat;
-	background-position: center;
-
+	background: radial-gradient(circle, rgb(51, 149, 217), rgb(51, 149, 217), white);
+	background: -o-radial-gradient(circle, rgb(51, 149, 217), rgb(51, 149, 217), white);
+	background: -webkit-radial-gradient(circle, rgb(51, 149, 217), rgb(51, 149, 217), white);
+	background: -moz-radial-gradient(circle, rgb(51, 149, 217), rgb(51, 149, 217), white);
 }
 .slideStartB.blue{
-	background-color: rgb(51, 149, 217);
-	background-image: url("downArrow.png");
-	background-size: 30px 25px;
-	background-repeat: no-repeat;
-	background-position: center;
+	background: radial-gradient(circle, rgb(51, 149, 217), rgb(51, 149, 217), white);
+	background: -o-radial-gradient(circle, rgb(51, 149, 217), rgb(51, 149, 217), white);
+	background: -webkit-radial-gradient(circle, rgb(51, 149, 217), rgb(51, 149, 217), white);
+	background: -moz-radial-gradient(circle, rgb(51, 149, 217), rgb(51, 149, 217), white);
 }
 .slideMid.blue {
 	width: 46px;
 	height: 46px;
-	background-color: lightblue;
+	background: radial-gradient(circle, rgb(120,210,255), rgb(120,210,255), white);
+	background: -o-radial-gradient(circle, rgb(120,210,255), rgb(120,210,255), white);
+	background: -webkit-radial-gradient(circle, rgb(120,210,255), rgb(120,210,255), white);
+	background: -moz-radial-gradient(circle, rgb(120,210,255), rgb(120,210,255), white);
 }
 .slideStartA.red{
-	background-color: red;
-	background-image: url("rightArrow.png");
-	background-size: 30px 25px;
-	background-repeat: no-repeat;
-	background-position: center;
+	background: radial-gradient(circle, rgb(210,0,65), rgb(210,0,65), white);
+	background: -o-radial-gradient(circle, rgb(210,0,65), rgb(210,0,65), white);
+	background: -webkit-radial-gradient(circle, rgb(210,0,65), rgb(210,0,65), white);
+	background: -moz-radial-gradient(circle, rgb(210,0,65), rgb(210,0,65), white);
 }
 .slideStartB.red{
-	background-color: red;
-	background-image: url("rightArrow.png");
-	background-size: 30px 25px;
-	background-repeat: no-repeat;
-	background-position: center;
+	background: radial-gradient(circle, rgb(210,0,65), rgb(210,0,65), white);
+	background: -o-radial-gradient(circle, rgb(210,0,65), rgb(210,0,65), white);
+	background: -webkit-radial-gradient(circle, rgb(210,0,65), rgb(210,0,65), white);
+	background: -moz-radial-gradient(circle, rgb(210,0,65), rgb(210,0,65), white);
 }
 .slideMid.red {
 	width: 46px;
 	height: 46px;
-	background-color: pink;
+	background: radial-gradient(rgb(210,120,150), rgb(210,120,150), white);
+	background: -o-radial-gradient(rgb(210,120,150), rgb(210,120,150), white);
+	background: -webkit-radial-gradient(rgb(210,120,150), rgb(210,120,150), white);
+	background: -moz-radial-gradient(rgb(210,120,150), rgb(210,120,150), white);
 }
 .slideStartA.yellow{
-	background-color: yellow;
-	background-image: url("leftArrow.png");
-	background-size: 30px 25px;
-	background-repeat: no-repeat;
-	background-position: center;
+	background: radial-gradient(circle, rgb(255,225,40), rgb(255,225,40), white);
+	background: -o-radial-gradient(circle, rgb(255,225,40), rgb(255,225,40), white);
+	background: -webkit-radial-gradient(circle, rgb(255,225,40), rgb(255,225,40), white);
+	background: -moz-radial-gradient(circle, rgb(255,225,40), rgb(255,225,40), white);
 }
 .slideStartB.yellow{
-	background-color: yellow;
-	background-image: url("leftArrow.png");
-	background-size: 30px 25px;
-	background-repeat: no-repeat;
-	background-position: center;
+	background: radial-gradient(circle, rgb(255,225,40), rgb(255,225,40), white);
+	background: -o-radial-gradient(circle, rgb(255,225,40), rgb(255,225,40), white);
+	background: -webkit-radial-gradient(circle, rgb(255,225,40), rgb(255,225,40), white);
+	background: -moz-radial-gradient(circle, rgb(255,225,40), rgb(255,225,40), white);
 }
 .slideMid.yellow {
 	width: 46px;
 	height: 46px;
-	background-color: lightyellow;
+	background: radial-gradient(circle, rgb(250,240,140), rgb(250,240,140), white);
+	background: -o-radial-gradient(circle, rgb(250,240,140), rgb(250,240,140), white);
+	background: -webkit-radial-gradient(circle, rgb(250,240,140), rgb(250,240,140), white);
+	background: -moz-radial-gradient(circle, rgb(250,240,140), rgb(250,240,140), white);
 }
 .slideStartA.green{
-	background-color: green;
-	background-image: url("upArrow.png");
-	background-size: 30px 25px;
-	background-repeat: no-repeat;
-	background-position: center;
+	background: radial-gradient(circle, rgb(0,180,40), rgb(0,180,40), white);
+	background: -o-radial-gradient(circle, rgb(0,180,40), rgb(0,180,40), white);
+	background: -webkit-radial-gradient(circle, rgb(0,180,40), rgb(0,180,40), white);
+	background: -moz-radial-gradient(circle, rgb(0,180,40), rgb(0,180,40), white);
 }
 .slideStartB.green{
-	background-color: green;
-	background-image: url("upArrow.png");
-	background-size: 30px 25px;
-	background-repeat: no-repeat;
-	background-position: center;
+	background: radial-gradient(circle, rgb(0,180,40), rgb(0,180,40), white);
+	background: -o-radial-gradient(circle, rgb(0,180,40), rgb(0,180,40), white);
+	background: -webkit-radial-gradient(circle, rgb(0,180,40), rgb(0,180,40), white);
+	background: -moz-radial-gradient(circle, rgb(0,180,40), rgb(0,180,40), white);
 }
 .slideMid.green {
 	width: 46px;
 	height: 46px;
-	background-color: lightgreen;
+	background: radial-gradient(circle, rgb(120,215,155), rgb(120,215,155), white);
+	background: -o-radial-gradient(circle, rgb(120,215,155), rgb(120,215,155), white);
+	background: -webkit-radial-gradient(circle, rgb(120,215,155), rgb(120,215,155), white);
+	background: -moz-radial-gradient(circle, rgb(120,215,155), rgb(120,215,155), white);
 }
+.safe.blue {
+	background: radial-gradient(circle, rgb(51, 149, 217), rgb(51, 149, 217), gray);
+	background: -o-radial-gradient(circle, rgb(51, 149, 217), rgb(51, 149, 217), gray);
+	background: -webkit-radial-gradient(circle, rgb(51, 149, 217), rgb(51, 149, 217), gray);
+	background: -moz-radial-gradient(circle, rgb(51, 149, 217), rgb(51, 149, 217), gray);
+}
+.safe.yellow {
+	background: radial-gradient(circle, rgb(255,225,40), rgb(255,225,40), gray);
+	background: -o-radial-gradient(circle, rgb(255,225,40), rgb(255,225,40), gray);
+	background: -webkit-radial-gradient(circle, rgb(255,225,40), rgb(255,225,40), gray);
+	background: -moz-radial-gradient(circle, rgb(255,225,40), rgb(255,225,40), gray);
+}
+.safe.red {
+	background: radial-gradient(circle, rgb(210,0,65), rgb(210,0,65), gray);
+	background: -o-radial-gradient(circle, rgb(210,0,65), rgb(210,0,65), gray);
+	background: -webkit-radial-gradient(circle, rgb(210,0,65), rgb(210,0,65), gray);
+	background: -moz-radial-gradient(circle, rgb(210,0,65), rgb(210,0,65), gray);
+}
+.safe.green {
+	background: radial-gradient(circle, rgb(0,180,40), rgb(0,180,40), gray);
+	background: -o-radial-gradient(circle, rgb(0,180,40), rgb(0,180,40), gray);
+	background: -webkit-radial-gradient(circle, rgb(0,180,40), rgb(0,180,40), gray);
+	background: -moz-radial-gradient(circle, rgb(0,180,40), rgb(0,180,40), gray);
+}
+.end.green {
+	background: radial-gradient(circle, white, white, rgb(0,180,40));
+	background: -o-radial-gradient(circle, white, white, rgb(0,180,40));
+	background: -webkit-radial-gradient(circle, white, white, rgb(0,180,40));
+	background: -moz-radial-gradient(circle, white, white, rgb(0,180,40));
+}
+.end.blue {
+	background: radial-gradient(circle, white, white, rgb(51, 149, 217));
+	background: -o-radial-gradient(circle, white, white, rgb(51, 149, 217));
+	background: -webkit-radial-gradient(circle, white, white, rgb(51, 149, 217));
+	background: -moz-radial-gradient(circle, white, white, rgb(51, 149, 217));
+}
+.end.red {
+	background: radial-gradient(circle, white, white,rgb(210,0,65));
+	background: -o-radial-gradient(circle, white, white,rgb(210,0,65));
+	background: -webkit-radial-gradient(circle, white, white,rgb(210,0,65));
+	background: -moz-radial-gradient(circle, white, white,rgb(210,0,65));
+}
+.end.yellow {
+	background: radial-gradient(circle, white, white, rgb(255,225,40));
+	background: -o-radial-gradient(circle, white, white, rgb(255,225,40));
+	background: -webkit-radial-gradient(circle, white, white, rgb(255,225,40));
+	background: -moz-radial-gradient(circle, white, white, rgb(255,225,40));
+}
+
 .highlighted1 {
 	opacity: 1;
 	font-weight: bold;

@@ -114,11 +114,11 @@ var game = {
 			safetyId = "r" + r;
 			$square.addClass('red');
 		}
-		if (r === 2 && c > 9) {
+		if (r === 2 && c >= 9) {
 			safetyId = "b" + (15 - c);
 			$square.addClass('blue')
 		}
-		if (c === 13 && r > 9) {
+		if (c === 13 && r >= 9) {
 			safetyId = "y" + (15 - r);
 			$square.addClass('yellow')
 				}
@@ -159,7 +159,8 @@ var game = {
 				if (safeZones.includes(id) === true) {specialClass = 'safe';
 					game.safeSpaces($square);
 				}
-				if (ends.includes(id) === true) {specialClass = 'end';}
+				if (ends.includes(id) === true) {specialClass = 'end';
+					game.safeSpaces($square);}
 				if (slideStartA.includes(id) === true) {specialClass = 'slideStartA';
 					game.slide($square);
 				}
@@ -570,8 +571,6 @@ var game = {
 
 			$sprite.appendTo(newSquare);
 			game.nextTurn();
-
-		
 	},
 	handleTurn: function(){
 
