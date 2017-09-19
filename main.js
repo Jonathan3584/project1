@@ -346,7 +346,7 @@ var game = {
 		game.card = card;
 		$('#deck1').text(game.card);
 		game.shuffleDeck();
-		game.handleTurn();
+		setTimeout(game.handleTurn, 100);
 		console.log(game.turn);
 	},	
 	selectSprite: function(){
