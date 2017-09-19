@@ -85,7 +85,7 @@ var game = {
 		.attr('id', game.player[i])
 		.addClass('name').
 		text(game.player[i]);
-		$('#yellow').addClass('highlighted');
+		$('#yellow').addClass('highlighted1');
 		}
 	},
 	boardDirection: function($square){
@@ -596,14 +596,14 @@ var game = {
 	nextTurn: function(){
 			$('#deck0').on('click', game.drawCard);
 			$('#deck0').addClass('highlighted');
-			$('.name').removeClass('highlighted');
+			$('.name').removeClass('highlighted1');
 			if (game.card !== 2) { 
 			game.turn = game.turn +1;
 			if (game.turn > 3) {
 			game.turn = game.turn - 4;
 		}
 	}
-		$('.name').get(game.turn).className += ' highlighted';
+		$('.name').get(game.turn).className += ' highlighted1';
 	},
 
 	winCheck: function(player){

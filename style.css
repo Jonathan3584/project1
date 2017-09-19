@@ -225,10 +225,13 @@ font-size: 20px;
 	height: 46px;
 	background-color: lightgreen;
 }
-.highlighted {
+.highlighted1 {
 	opacity: 1;
 	font-weight: bold;
 	font-size: 30px;
+}
+.highlighted {
+	opacity: .4;
 }
 .attention {
 	background-color: black;
