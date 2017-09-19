@@ -564,9 +564,13 @@ var game = {
 			
 			var sprite = game.createSprite($sprite, player);
 			game.sprites[player].push(sprite);
-			console.log(game.sprites);
-			console.log(player);
-			var id = player + (game.sprites[player].length -1);
+			var x = game.sprites[player].length -1;
+			
+			game.sprites[player][x].position = (parseInt(newSquare.attr('directionalId')) - game.playerConstant[player]);
+			if (game.sprites[player][x].position < 0) {
+				game.sprites[player][x].position = game.sprites[player][x].position + 60;
+			}
+			var id = player + (x);
 			$sprite.attr('id', id);
 
 			$sprite.appendTo(newSquare);
