@@ -15,8 +15,9 @@ ul {
 	margin: auto;
 	text-align: left;
 }
-h1 {
-
+a {
+	font-size: 30px;
+	font-weight: bold;
 }
 #board {
 	display: inline-block;
@@ -229,7 +230,9 @@ font-size: 20px;
 	font-weight: bold;
 	font-size: 30px;
 }
-
+.attention {
+	background-color: black;
+}
 
 @media only screen 
   and (min-device-width: 768px) 

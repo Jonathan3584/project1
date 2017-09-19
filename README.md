@@ -18,13 +18,11 @@ Win conditions are assessed based on array lengths.
 
 Pieces are manipulated by click listeners, but are automatically moved the number of squares that the cards require.
 
-One of the more difficult undertakings of this project was creating the conditions to insure that a player made a legal move.  My legal move conditions are robust, and the player will only be presented with legal moves.  When no legal move is available, the game will automatically pass on to the next player.
+One of the more difficult undertakings of this project was creating robust legal move conditions. On each turn, the player will only be presented with legal moves.  When no legal move is available, the game will automatically pass on to the next player.
 
-Problems that still remain are the alternative actions associated with 7, 10, and 11 cards in the traditional game.  These present options of movement to the user.
+Problems that still remain are the alternative actions associated with 7, 10, and 11 cards in the traditional game.  These present options of movement to the user.  I will also upgrade the game respond to different number of players.
 
-The game could also use more time in styling.  Because of the board size, it was not reasonable to institute media queries for smaller screens.  The styling was rushed because I prioritized debugging.  The logic of this game was a more compelling challenge than the styling, which I will update later.
-
-It will be an easy upgrade at some point to make the game respond to the number of players.  I did not allocate enough time to do it before the project deadline.
+The game could also use more time in styling.  Because of the board size, it was not reasonable to institute media queries for smaller screens.  The styling was rushed because I prioritized debugging.  The logic of this game was a more compelling challenge than the styling, which I will update later.  
 
 Minimum viable product:
 

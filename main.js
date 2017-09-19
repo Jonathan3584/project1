@@ -277,19 +277,19 @@ var game = {
 	startingConditions: function(){
 		var player = game.player[game.turn];
 		if (player === 'yellow') {
-			$('#236').addClass('highlighted');
+			$('#236').addClass('attention');
 			$('#236').on('click', game.spriteStart);
 		}
 		if (player === 'red') {
-			$('#19').addClass('highlighted');
+			$('#19').addClass('attention');
 			$('#19').on('click', game.spriteStart);
 		}
 		if (player === 'green') {
-			$('#193').addClass('highlighted');
+			$('#193').addClass('attention');
 			$('#193').on('click', game.spriteStart);
 		}
 		if (player === 'blue') {
-			$('#62').addClass('highlighted');
+			$('#62').addClass('attention');
 			$('#62').on('click', game.spriteStart);
 		}
 	},
@@ -334,7 +334,7 @@ var game = {
 		}
 	},
 	drawCard: function(){
-		$('.name').removeClass('highlighted');
+		
 		$('#deck0').off('click', game.drawCard);
 		$('#deck0').removeClass('highlighted');
 		var length = game.deck.length;
@@ -357,9 +357,8 @@ var game = {
 		console.log(game.sprites[player][y])
 		var spriteObject = game.sprites[player][y]
 		$('.stage').off('click', game.spriteStart);
-		$('.stage').removeClass('highlighted')
+		$('.stage').removeClass('attention')
 		$('.sprite').off('click', game.selectSprite);
-
 		$('.sprite').removeClass('highlighted');
 		game.spriteMove(spriteObject);
 	},
@@ -380,10 +379,9 @@ var game = {
 	},
 	spriteStart: function(){
 		$('.stage').off('click', this.spriteStart);
-		$('.stage').removeClass('highlighted');
+		$('.stage').removeClass('attention');
 		$('.sprite').off('click', this.selectSprite);
-		$('.sprite').removeClass('highlighted');
-		
+		$('.name').removeClass('highlighted');
 		var player = game.player[game.turn];
 		console.log(game.sprites[player].length + game.endSprites[player].length)
 		
@@ -598,6 +596,7 @@ var game = {
 	nextTurn: function(){
 			$('#deck0').on('click', game.drawCard);
 			$('#deck0').addClass('highlighted');
+			$('.name').removeClass('highlighted');
 			if (game.card !== 2) { 
 			game.turn = game.turn +1;
 			if (game.turn > 3) {
